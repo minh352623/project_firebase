@@ -1,0 +1,32 @@
+
+.main-content{
+    width: 1400px;
+    margin: 48px auto;
+
+}
+
+.main-content-item{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 48px 0;
+}
+.main-content-right img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.main-content-text h3,
+.main-content-text p{
+    color: #8a8686;
+
+}
+
+.main-content-text p{
+    font-size: 1.2rem;
+}
+.main-content-text h1{
+    border-bottom: 2px solid #ff871d;
+    width: fit-content;
+    padding-bottom: 24px;
+
+}

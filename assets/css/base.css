@@ -1,0 +1,19 @@
+:root{
+    --background-main:#e4e4e4;
+    --hover-color:#ff871d ;
+    --white-color:#fff;
+    --text-color: #000;
+  
+}
+
+*{
+    box-sizing:  border-box;
+}
+ 
+html{
+    /* 16px */
+    font-size: 100%; 
+    line-height: 1.6rem;
+    font-family: 'Poppins', sans-serif;
+}
+
