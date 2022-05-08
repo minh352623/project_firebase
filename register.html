@@ -27,6 +27,7 @@
     <!-- <link rel="stylesheet" href="./assets/css/contact.css" /> -->
     <!-- <link rel="stylesheet" href="./assets/css/introduce.css" /> -->
     <link rel="stylesheet" href="./assets/css/register.css" />
+    <link rel="stylesheet" href="./assets/css/reponsive.css">
 
     <title>Register</title>
   </head>
@@ -34,6 +35,9 @@
     <div class="app">
       <div class="header">
         <div class="navbar">
+          <div class="icon-mobile-menu">
+            <i class="fas fa-align-left"></i>
+          </div>
           <div class="navbar-logo">
             <a href="#">
               <img src="./assets/img/logo.webp" alt="" />
@@ -66,24 +70,26 @@
               <div class="log-in">
                 <span>
                   <a class="log-in-icon" href="./login.html">
-                    <i class="fas fa-user"></i>
+                    
                     Log in
                   </a>
                 </span>
               </div>
               <div class="register">
                 <span class="register-char">/</span>
-                <span><a class="register-icon" href="#">Register</a></span>
+                <span><a class="register-icon" href="./register.html">Register</a></span>
               </div>
             </div>
             <div class="navbar-icon-list">
-              <span class="navbar-icon-item">
-                <i class="far fa-heart"></i>
-              </span>
-              <span class="navbar-icon-item">
+              <a href="./user.html " class="navbar-icon-item user-icon">
+                <i class="fas fa-user"></i>
+              </a>
+              <span class="navbar-icon-item cart">
                 <i class="fas fa-cart-plus"></i>
+                <span class="quantity-item">0</span>
+
               </span>
-              <span class="navbar-icon-item">
+              <span class="navbar-icon-item search">
                 <i class="fas fa-search"></i>
               </span>
             </div>
@@ -92,46 +98,69 @@
       </div>
 
       <div class="main">
-          <div class="main-register">
-              <h1>REGISTER</h1>
-              <form action="" method="post">
-                  <div class="main-register-item">
-                      <div class="main-register-item-content">
-                          <span>Name</span>
-                          <span>*</span>
-                      </div>
-                      <input required type="text" name="fullname" placeholder="Nguyen Van A">
-                  </div>
-                  <div class="main-register-item">
-                    <div class="main-register-item-content">
-                        <span>Email</span>
-                        <span>*</span>
-                    </div>
-                    <input required type="email" name="email" placeholder="mail@gmail.com">
-                </div>
-                <div class="main-register-item">
-                    <div class="main-register-item-content">
-                        <span>Password</span>
-                        <span>*</span>
-                    </div>
-                    <input required type="password" name="password" placeholder="Password">
-                </div>
-                <div class="main-register-item">
-                    <div class="main-register-item-content">
-                        <span>Confirm password</span>
-                        <span>*</span>
-                    </div>
-                    <input required type="password" name="password" placeholder="Confirm password">
-                </div>
-              
-                <button class="main-register-btn" type="submit">REGISTER</button>
-                <a class="main-register-return" href="#">
-                    <p>Return to Store</p>
-                </a>
-            </form>
-             
-             
-          </div>
+        <div class="main-register">
+          <h1>REGISTER</h1>
+          <p class="mess"></p>
+          <form action="#" method="post" class="form-register">
+            <div class="main-register-item">
+              <div class="main-register-item-content">
+                <span>Name</span>
+                <span>*</span>
+              </div>
+              <input
+                class="name"
+                type="text"
+                name="fullname"
+                placeholder="Nguyen Van A"
+              />
+              <p class="error error-name"></p>
+            </div>
+            <div class="main-register-item">
+              <div class="main-register-item-content">
+                <span>Email</span>
+                <span>*</span>
+              </div>
+              <input
+                class="email"
+                type="text"
+                name="email"
+                placeholder="mail@gmail.com"
+              />
+              <p class="error error-email"></p>
+            </div>
+            <div class="main-register-item">
+              <div class="main-register-item-content">
+                <span>Password</span>
+                <span>*</span>
+              </div>
+              <input
+                class="pwd"
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
+              <p class="error error-pwd"></p>
+            </div>
+            <div class="main-register-item">
+              <div class="main-register-item-content">
+                <span>Confirm password</span>
+                <span>*</span>
+              </div>
+              <input
+                class="confirm-password"
+                type="password"
+                name="confirm-password"
+                placeholder="Confirm password"
+              />
+              <p class="error error-confirmpwd"></p>
+            </div>
+
+            <button class="main-register-btn" type="submit">REGISTER</button>
+            <a class="main-register-return" href="#">
+              <p>Return to Store</p>
+            </a>
+          </form>
+        </div>
       </div>
 
       <div class="footer">
@@ -187,6 +216,37 @@
         </div>
       </div>
     </div>
+    <div class="model-cart">
+      <div class="cart-container">
+        <div class="cart-top">
+          <div class="clear cart-top-close">
+            <i class="fas fa-times"></i>
+          </div>
+          <div class="cart-top-title">
+            <span>Shopping Cart</span>
+          </div>
+          <div class="cart-top-quantity">
+            <span>1</span>
+          </div>
+        </div>
+
+        <div class="array-empty"></div>
+        <div class="cart-center"></div>
+
+        <div class="cart-bottom">
+          <div class="cart-bottom-price">
+            <span>Total:</span>
+            <span class="total-price">0</span>
+          </div>
+
+          <div class="cart-bottom-btn">
+            <a href="#"> <button>View Cart</button></a>
+            <a href="#"> <button>Check Out</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script
       type="text/javascript"
       src="https://code.jquery.com/jquery-1.11.0.min.js"
@@ -201,6 +261,6 @@
     ></script>
     <script src="./js/slick.js"></script>
     <script src="./js/main.js" type="module"></script>
-
+    <script src="./js/register.js"></script>
   </body>
 </html>

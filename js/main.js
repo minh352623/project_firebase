@@ -45,7 +45,7 @@ window.addEventListener('load' , function(){
         modelCart.classList.remove('active');
 
     })
-    cartContainer.addEventListener('click', function(e){
+    cartContainer?.addEventListener('click', function(e){
         e.stopPropagation();
     })
 
@@ -190,6 +190,20 @@ window.addEventListener('load' , function(){
     sumMoney();
 
  
-
+    //modile 
+    const menu = document.querySelector('.icon-mobile-menu i');
+    const navLink = document.querySelector('.navbar-link');
+    const navList =document.querySelector('.navbar-link-list');
+    navList.addEventListener('click',function(e){
+        e.stopPropagation();
+    })
+    navLink.addEventListener('click',function(){
+        this.classList.remove('active');
+    })
+    console.log(navLink);
+    menu.addEventListener('click',function(){
+        console.log('abc')
+        navLink.classList.add('active');
+    })
 
 });

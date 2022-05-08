@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="./assets/css/main.css" />
     <link rel="stylesheet" href="./assets/css/contact.css" />
     <link rel="stylesheet" href="./assets/css/introduce.css" />
+    <link rel="stylesheet" href="./assets/css/reponsive.css">
 
     <title>Introduce</title>
   </head>
@@ -33,6 +34,9 @@
     <div class="app">
       <div class="header">
         <div class="navbar">
+          <div class="icon-mobile-menu">
+            <i class="fas fa-align-left"></i>
+          </div>
           <div class="navbar-logo">
             <a href="#">
               <img src="./assets/img/logo.webp" alt="" />
@@ -65,7 +69,7 @@
               <div class="log-in">
                 <span>
                   <a class="log-in-icon" href="./login.html">
-                    <i class="fas fa-user"></i>
+                    
                     Log in
                   </a>
                 </span>
@@ -76,13 +80,15 @@
               </div>
             </div>
             <div class="navbar-icon-list">
-              <span class="navbar-icon-item">
-                <i class="far fa-heart"></i>
-              </span>
-              <span class="navbar-icon-item">
+              <a href="./user.html " class="navbar-icon-item user-icon">
+                <i class="fas fa-user"></i>
+              </a>
+              <span class="navbar-icon-item cart">
                 <i class="fas fa-cart-plus"></i>
+                <span class="quantity-item">0</span>
+
               </span>
-              <span class="navbar-icon-item">
+              <span class="navbar-icon-item search">
                 <i class="fas fa-search"></i>
               </span>
             </div>
@@ -93,7 +99,7 @@
       <div class="main">
         <div class="contact-banner">
           <h2 class="contact-title">Introduce Us</h2>
-          <div class="contact-link">
+          <div class="contact-link none">
             <span>Home</span>
             <span>></span>
             <span>Inrpduce Us </span>
@@ -254,6 +260,41 @@
         </div>
       </div>
     </div>
+    <div class="model-cart ">
+      <div class="cart-container">
+        <div class="cart-top">
+          <div class="clear cart-top-close">
+            <i class="fas fa-times"></i>
+          </div>
+          <div class="cart-top-title">
+            <span>Shopping Cart</span>
+          </div>
+          <div class="cart-top-quantity">
+            <span >1</span>
+          </div>
+          
+        </div>
+        
+        <div class="array-empty"></div>
+        <div class="cart-center">
+        </div>
+
+        <div class="cart-bottom">
+          <div class="cart-bottom-price">
+            <span>Total:</span>
+            <span class="total-price">0</span>
+          </div>
+
+          <div class="cart-bottom-btn">
+            <a href="#"> <button>View Cart</button></a>
+            <a href="#"> <button>Check Out</button></a>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <script
       type="text/javascript"
       src="https://code.jquery.com/jquery-1.11.0.min.js"
