@@ -102,7 +102,7 @@ const product= [
         id:15,
         name: 'Wrinkled Bag',
         price: 55,
-        img:'../assets/img/product/pro15.png',
+        img:'./assets/img/product/pro15.png',
 
     },
     {
@@ -143,7 +143,16 @@ function renderItem(item){
 }
 
 function loadItem(arrayItem, itemCart){
-    for( let i =0; i<itemCart.length; i++){
+    let array=0;
+    if(arrayItem.length>itemCart.length){
+        array= itemCart.length
+
+    }
+    else{
+        array= arrayItem.length
+
+    }
+    for( let i =0; i<array; i++){
         let item= arrayItem[i];
         itemCart[i].insertAdjacentHTML('beforeend',renderItem(item));
     }
