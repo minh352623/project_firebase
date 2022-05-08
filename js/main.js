@@ -19,15 +19,8 @@ window.addEventListener('load' , function(){
     
     const heightAuto= document.querySelector('.main-product')
     productContainerBtn?.addEventListener('click', function(){
-        heightAuto.classList.toggle('height-auto');
-       
-        if(heightAuto.matches('.height-auto')){
-            productContainerBtnB.textContent= "collapse".toUpperCase();
-        }
-        else{
-            productContainerBtnB.textContent= "ALL PRODUCT";
-    
-        }
+        window.location.href='./product.html'
+        
     });
 
     // active cart 
