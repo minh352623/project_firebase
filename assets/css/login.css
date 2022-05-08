@@ -60,3 +60,12 @@
  .main-login-return:hover{
      color: var(--hover-color);
  }
+ .error{
+    color: red;
+}
+.mess{
+    width: 1050px;
+    background-color: green;
+    color: #fff;
+    text-align: center;
+}

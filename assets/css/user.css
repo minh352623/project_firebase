@@ -1,0 +1,14 @@
+.main{
+    
+    margin: 12px auto;
+    
+}
+
+.main-right>div {
+    margin: 12px;
+    font-size: 1.2rem;
+}
+.main-right>div span:first-child{
+    color: var(--hover-color);
+
+}
