@@ -633,6 +633,7 @@ line-height: 1.7;
 .exit:hover{
     color: #ff871d;
 }
+.mobile-heollo,
 .delete-log,
 .mobile-exit{
     display: none;
