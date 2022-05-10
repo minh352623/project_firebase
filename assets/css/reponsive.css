@@ -176,6 +176,7 @@
     .hello{
         display: none;
     }
+    .delete-log,
     .mobile-exit{
         display: block;
     }
