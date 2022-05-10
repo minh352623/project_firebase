@@ -3,7 +3,7 @@
    display: flex;
     width: 1300px;
    margin: 100px auto;
-
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 .main-register{
    margin: auto;
@@ -68,4 +68,10 @@
     background-color: green;
     color: #fff;
     text-align: center;
+}
+.footer-form{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
