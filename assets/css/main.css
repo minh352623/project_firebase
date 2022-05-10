@@ -623,7 +623,7 @@ line-height: 1.7;
     
 }
 .none{
-    display: none;
+    display: none !important;
 }
 .exit{
     text-decoration: none;
@@ -632,4 +632,7 @@ line-height: 1.7;
 }
 .exit:hover{
     color: #ff871d;
+}
+.mobile-exit{
+    display: none;
 }
