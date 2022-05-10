@@ -146,4 +146,37 @@
     .cart-container{
         width: 80%;
     }
+
+
+    /* login */
+    .main{
+        width: 100%;
+    }
+    .main-login form{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .main-login{
+        width: 100%;
+        margin: 0;
+    }
+
+    .main-login-item input{
+        width: 100%;
+    }
+    .main-register,
+    .mess{
+        width: 100%;
+    }
+    .main-register form{
+        grid-template-columns: repeat(1,1fr);
+    }
+    .main-register-item input{
+        width: 100%;
+    }
+    .hello{
+        display: none;
+    }
+    .mobile-exit{
+        display: block;
+    }
 }
