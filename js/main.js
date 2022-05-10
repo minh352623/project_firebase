@@ -115,15 +115,16 @@ window.addEventListener('load' , function(){
 
     function showCart(){
         arrayItem=JSON.parse(window.localStorage.getItem('listItem')) || []; // lấy dữ liệu từ local
-        cartCenter.innerHTML='';// reset cart
+        cartCenter?cartCenter.innerHTML='':null;// reset cart
         if(arrayItem.length>0){
             arrayItem.forEach((item, index)=>{
                 cartCenter.insertAdjacentHTML('beforeend',createItem(item));
                 
             })
-            arrayEmpty.textContent='';
+            arrayEmpty?arrayEmpty.textContent='':null;
+
         }else{
-            arrayEmpty.textContent='NO PRODUCTS';
+            arrayEmpty?arrayEmpty.textContent='NO PRODUCTS':null;
         }
 
     }
@@ -139,7 +140,7 @@ window.addEventListener('load' , function(){
 
     })
     
-    cartCenter.addEventListener('click',removeItemCart)
+    cartCenter?.addEventListener('click',removeItemCart)
     function removeItemCart(e){
         arrayItem=JSON.parse(window.localStorage.getItem('listItem')) || []; // lấy dữ liệu từ local
         if(e.target.matches('.cart-center-info-name-clear i') ){
@@ -161,11 +162,11 @@ window.addEventListener('load' , function(){
 
         let scrollY= window.pageYOffset;
          if(scrollY>heightHeader){
-             header.style.position='fixed'
+             header?header.style.position='fixed' : null;
              document.body.style.paddingTop=`${heightHeader}px`;
          }
          else{
-            header.style.position='static'
+            header?header.style.position='static':null;
 
             document.body.style.paddingTop="";
 
@@ -183,9 +184,9 @@ window.addEventListener('load' , function(){
             sum+= item.price*item.number;
             sumNumber+=item.number;
         })
-        totalPrice.textContent=`${formatMoney(sum)} đ` ;
-        quantityItem.textContent=`${sumNumber}`;
-        cartTopQuantity.textContent=`${sumNumber}`;
+        totalPrice?totalPrice.textContent=`${formatMoney(sum)} đ` : null;
+        quantityItem?quantityItem.textContent=`${sumNumber}`: null;
+        cartTopQuantity?cartTopQuantity.textContent=`${sumNumber}`: null;
     }
     sumMoney();
 
@@ -194,14 +195,14 @@ window.addEventListener('load' , function(){
     const menu = document.querySelector('.icon-mobile-menu i');
     const navLink = document.querySelector('.navbar-link');
     const navList =document.querySelector('.navbar-link-list');
-    navList.addEventListener('click',function(e){
+    navList?.addEventListener('click',function(e){
         e.stopPropagation();
     })
-    navLink.addEventListener('click',function(){
+    navLink?.addEventListener('click',function(){
         this.classList.remove('active');
     })
     console.log(navLink);
-    menu.addEventListener('click',function(){
+    menu?.addEventListener('click',function(){
         console.log('abc')
         navLink.classList.add('active');
     })

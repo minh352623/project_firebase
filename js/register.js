@@ -3,21 +3,32 @@ window.addEventListener('load', function(){
     console.log()
     const errorName= document.querySelector('.error-name')
     const errorEmail= document.querySelector('.error-email')
-    console.log(errorEmail)
+    // console.log(errorEmail)
     const errorPwd= document.querySelector('.error-pwd')
     const errorConfirmpwd= document.querySelector('.error-confirmpwd')
-    
+    const errorSdt= document.querySelector('.error-sdt')
+    const errorAddress= document.querySelector('.error-address')
+
+    let arrayUser=[];
 
     formRegister.addEventListener('submit', function(e){
         e.preventDefault();
+        arrayUser=JSON.parse(window.localStorage.getItem('user')) || [];
+        console.log(arrayUser);
         let valuename= this.querySelector('.name').value 
         let valueemail= this.querySelector('.email').value 
         let valuepwd= this.querySelector('.pwd').value 
         let valueconfirm= this.querySelector('.confirm-password').value 
+        let valueSdt= this.querySelector('.sdt').value 
+        let valueAddress= this.querySelector('.address').value 
+
         let isName=false;
         let isEmail=false;
         let isPwd=false;
         let isconfirmpwwd=false;
+        let isSdt=false;
+        let isAddress=false;
+
 
         const regexEmail=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         ///name
@@ -42,7 +53,19 @@ window.addEventListener('load', function(){
             errorEmail.textContent='Không đúng định dạng email'
             isEmail=false;
         }
-        else{
+        else if(arrayUser.length>0){
+            arrayUser.forEach((item) =>{
+                if(valueemail==item.email){
+                errorEmail.textContent='Email đã được sử dụng để đằng ký tài khoản'
+                isEmail=false;
+            }else {
+                errorEmail.textContent=''
+                isEmail=true;
+            }
+
+            })
+        }
+        else {
             errorEmail.textContent=''
             isEmail=true;
         }
@@ -73,12 +96,64 @@ window.addEventListener('load', function(){
             errorConfirmpwd.textContent=''
             isconfirmpwwd=true;
         }
+
+        //số điện thoại 
+        if(valueSdt==''){
+            errorSdt.textContent='Số điện thoại không được rỗng'
+            isSdt=false;
+        }
+        else if(valueSdt.length!=10 ){
+            errorSdt.textContent='Số điện thoại phải 10 số '
+            isSdt=false;
+        }
+        else{
+            errorSdt.textContent=''
+            isSdt=true;
+        }
+
+        //địa chỉ
+        if(valueAddress==''){
+            errorAddress.textContent='Địa chỉ không được rỗng'
+            isAddress=false;
+        }
+        else if(valueAddress.length<10 ){
+            errorAddress.textContent='Địa chỉ trên 10 ký tự'
+            isAddress=false;
+        }
+        else{
+            errorAddress.textContent=''
+            isAddress=true;
+        }
+
+
+
+
         const mess= document.querySelector('.mess')
-        if(isName && isEmail && isPwd && isconfirmpwwd){
-            mess.textContent='ĐĂNG KÝ THÀNH CÔNG'
+        if(isName && isEmail && isPwd && isconfirmpwwd && isAddress && isSdt){
+            let infoUses = {
+                name: valuename,
+                email:valueemail,
+                pwd: valuepwd,
+                address: valueAddress,
+                sdt: valueSdt,
+
+            }
+            arrayUser.push(infoUses)
+            window.localStorage.setItem('user', JSON.stringify(arrayUser))
+            mess.textContent='ĐĂNG KÝ THÀNH CÔNG BẠN CÓ THỂ ĐĂNG NHẬP NGAY BÂY GIỜ'
             mess.style.padding='8px';
+            mess.style.backgroundColor='green';
+
             this.reset();
         }
+        else{
+            mess.textContent='ĐĂNG KÝ KHÔNG THÀNH CÔNG'
+            mess.style.padding='8PX';
+            mess.style.backgroundColor='red';
+           
+
+        }
+
 
     })
 

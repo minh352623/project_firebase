@@ -622,3 +622,14 @@ line-height: 1.7;
     font-size: 2rem;
     
 }
+.none{
+    display: none;
+}
+.exit{
+    text-decoration: none;
+    color: #000;
+
+}
+.exit:hover{
+    color: #ff871d;
+}
