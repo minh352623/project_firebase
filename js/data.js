@@ -2,113 +2,113 @@ const product= [
     {
         id:1,
         name: 'Bag',
-        price: 60,
+        price: 600000,
         img:'./assets/img/product/pro1.webp',
 
     },
     {
         id:2,
         name: 'Chain Bag',
-        price: 70,
+        price: 700000,
         img:'./assets/img/product/pro2.webp',
 
     },
     {
         id:3,
         name: 'Crossbody Bag',
-        price: 55,
+        price: 550000,
         img:'./assets/img/product/pro3.webp',
 
     },
     {
         id:4,
         name: 'Deviated Flap Bag',
-        price: 60,
+        price: 600000,
         img:'./assets/img/product/pro4.webp',
 
     },
     {
         id:5,
         name: 'Double Flap Bag',
-        price: 60,
+        price: 600000,
         img:'./assets/img/product/pro5.webp',
 
     },
     {
         id:6,
         name: 'Hand Bag',
-        price: 55,
+        price: 550000,
         img:'./assets/img/product/pro6.webp',
 
     },
     {
         id:7,
         name: 'Hand Bag',
-        price: 55,
+        price: 550000,
         img:'./assets/img/product/pro7.webp',
 
     },
     {
         id:8,
         name: 'Hand Bag',
-        price: 60,
+        price: 600000,
         img:'./assets/img/product/pro8.webp',
 
     },
     {
         id:9,
         name: 'Large Bag',
-        price: 66,
+        price: 660000,
         img:'./assets/img/product/pro9.png',
 
     },
     {
         id:10,
         name: 'Large Bag',
-        price:70,
+        price:700000,
         img:'./assets/img/product/pro10.png',
 
     },
     {
         id:11,
         name: 'Round Sole Bag',
-        price: 55,
+        price: 550000,
         img:'./assets/img/product/pro11.png',
 
     },
     {
         id:12,
         name: 'Round Sole Bag',
-        price: 55,
+        price: 550000,
         img:'./assets/img/product/pro12.webp',
 
     },
     {
         id:13,
         name: 'Ruffled Bag',
-        price: 60,
-        sale:55,
+        price: 1000000,
+        sale:550000,
         img:'./assets/img/product/pro12.webp',
 
     },
     {
         id:14,
         name: 'Twisted Bag',
-        price: 50,
+        price: 500000,
         img:'./assets/img/product/pro14.png',
 
     },
     {
         id:15,
         name: 'Wrinkled Bag',
-        price: 55,
+        price: 550000,
         img:'./assets/img/product/pro15.png',
 
     },
     {
         id:16,
         name: 'Large Bag',
-        price: 60,
+        price: 600000,
         img:'./assets/img/product/pro10.png',
 
     },
