@@ -51,6 +51,14 @@ window.addEventListener('load', function(){
             mainProductItem.forEach((item, index) => {
                 item.innerHTML="";
             })
+            if(arraysearch.length<8){
+                page[1].style.display="none";
+                page[0].click();
+            }else{
+                page[1].style.display="inline-block";
+
+            }
+
             loadItem(arraysearch, mainProductItem)
         }
     

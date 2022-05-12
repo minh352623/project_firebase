@@ -42,6 +42,7 @@
 
 }
 .nunber-page-list{
+    display: inline-block;
     padding: 12px;
     border: 1px solid #ccc;
     cursor: pointer;

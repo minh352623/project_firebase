@@ -10,7 +10,7 @@ window.addEventListener('load', function(){
    const nameAdd=document.querySelector('.name-address')
    const modileExit = document.querySelector('.mobile-exit');
     const deleteLog = document.querySelectorAll('.delete-log');
-    const mobileHello = document.querySelector('.mobile-heollo');
+    const mobileHello = document.querySelector('.mobile-hello');
     console.log(infoUser);
     if(infoUser.length>0){
         navbarLog?.classList.add('none');
@@ -19,7 +19,7 @@ window.addEventListener('load', function(){
 
         hello?.classList.remove('none');
         modileExit?.classList.remove('none');
-        mobileHello?mobileHello.textContent = "Hello "+infoUser[0].name:null;
+        mobileHello?mobileHello.textContent = "Chào! "+infoUser[0].name:null;
         nameUser?nameUser.textContent=infoUser[0].name:null;
         name?name.textContent=infoUser[0].name:null;
         nameEmail?nameEmail.textContent=infoUser[0].email:null;

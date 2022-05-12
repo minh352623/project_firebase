@@ -118,7 +118,7 @@ window.addEventListener('load' , function(){
         cartCenter?cartCenter.innerHTML='':null;// reset cart
         if(arrayItem.length>0){
             arrayItem.forEach((item, index)=>{
-                cartCenter.insertAdjacentHTML('beforeend',createItem(item));
+                cartCenter?.insertAdjacentHTML('beforeend',createItem(item));
                 
             })
             arrayEmpty?arrayEmpty.textContent='':null;
@@ -203,7 +203,7 @@ window.addEventListener('load' , function(){
     })
     console.log(navLink);
     menu?.addEventListener('click',function(){
-        console.log('abc')
+        
         navLink.classList.add('active');
     })
 

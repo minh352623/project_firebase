@@ -19,9 +19,9 @@
 
 }   
 .contact-container{
-    margin-top: 50px;
-    width: 1400px;
-    margin: 0 auto;
+   
+    /* width: 80%; */
+    margin: 24px auto;
 }
 .contact-top{
     display: flex;

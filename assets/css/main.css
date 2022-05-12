@@ -29,14 +29,14 @@
 }
 .navbar-link-item{
     text-decoration: none;
-    padding: 8px 32px;
-    font-size: 1.5rem;
+    padding: 8px 12px;
+    font-size: 1.3rem;
     color: var(--text-color);
 }
 .navbar-icon{
     display: flex;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--text-color);
     
 }
@@ -122,8 +122,8 @@
 }
 /* main */
 .main{
-    margin: 20px 0 50px;
-
+    margin: 24px auto;
+    
 }
 .main-banner{
     display: grid;
@@ -633,7 +633,7 @@ line-height: 1.7;
 .exit:hover{
     color: #ff871d;
 }
-.mobile-heollo,
+.mobile-hello,
 .delete-log,
 .mobile-exit{
     display: none;
