@@ -23,5 +23,8 @@ window.addEventListener("load", function () {
       userId: infoUser.id,
     };
     insertData("products", data);
+    setTimeout(function () {
+      fromAdd.reset();
+    }, 1500);
   });
 });
