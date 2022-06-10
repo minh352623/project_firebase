@@ -117,7 +117,7 @@ window.addEventListener("load", async function () {
       </div>
       <div class="content">
       <div class="d-flex justify-content-between">
-      
+
       <p style="font-weight:bold;">${comment.nameUser} </p>
       <span>${comment.createAt}</span>
       </div>
@@ -163,6 +163,9 @@ window.addEventListener("load", async function () {
   }
   const formCm = document.querySelector(".form_comment");
   btnCm.addEventListener("click", function () {
+    if (!infoUser) {
+      alert("Bạn phải đăng nhập trước");
+    }
     let value = inputCm.value;
     if (value != "") {
       let date = caretaDate();
