@@ -93,3 +93,43 @@
 .detail-info__color .color-option span:nth-child(2) {
     background-color: #69bff1;
 }
+
+.container_comment {
+    margin-top: 24px;
+}
+
+.item-comment {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    gap: 0 30px;
+
+}
+
+.item-comment .img {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+
+}
+
+.item-comment .img img {
+    border-radius: 50%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content {
+    background-color: #ccc;
+    padding: 12px;
+    border-radius: 12px;
+    flex: 1;
+}
+
+.container_comment {
+    height: 70vh;
+    overflow-y: auto;
+    ;
+}
