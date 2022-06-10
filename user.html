@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="./assets/img/logo.webp">
+    <link rel="icon" href="./assets/img/logo.webp" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -38,7 +38,7 @@
 
     <link rel="stylesheet" href="./assets/css/login.css" />
     <link rel="stylesheet" href="./assets/css/user.css" />
-    <link rel="stylesheet" href="./assets/css/reponsive.css">
+    <link rel="stylesheet" href="./assets/css/reponsive.css" />
 
     <title>Thông tin cá nhân</title>
   </head>
@@ -54,44 +54,70 @@
               <img src="./assets/img/logo.webp" alt="" />
             </a>
           </div>
-          <div class="navbar-link ">
+          <div class="navbar-link">
             <ul class="navbar-link-list">
               <li class="navbar-link-item mobile-hello"></li>
-  
-              <li><a href="trangchu.html" class="navbar-link-item">Trang Chủ</a></li>
-              <li><a href="introduce.html" class="navbar-link-item">Giới Thiệu</a></li>
+
+              <li>
+                <a href="trangchu.html" class="navbar-link-item">Trang Chủ</a>
+              </li>
+              <li>
+                <a href="introduce.html" class="navbar-link-item">Giới Thiệu</a>
+              </li>
               <li class="link-hover">
-                <a href="./product.html" class="navbar-link-item">Sản Phẩm<i class="fas fa-angle-down"></i></a>
+                <a href="./product.html" class="navbar-link-item"
+                  >Sản Phẩm<i class="fas fa-angle-down"></i
+                ></a>
                 <ul class="product-selsect">
                   <li><a href="">Yêu Thích</a></li>
                   <li><a href="">Giảm Giá</a></li>
                 </ul>
               </li>
-              <li><a href="contact.html" class="navbar-link-item">Liên Hệ</a></li>
+              <li>
+                <a href="contact.html" class="navbar-link-item">Liên Hệ</a>
+              </li>
               <li><a href="" class="navbar-link-item">Thanh Toán</a></li>
-              <li><a href="./register.html" class="navbar-link-item delete-log mobile-register">Đăng ký</a></li>
-              <li><a href="./index.html" class="navbar-link-item delete-log mobile-login">Đăng nhập</a></li>
-              <li><a href="./index.html" class="navbar-link-item mobile-exit">Thoát</a></li>
+              <li>
+                <a
+                  href="./register.html"
+                  class="navbar-link-item delete-log mobile-register"
+                  >Đăng ký</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./index.html"
+                  class="navbar-link-item delete-log mobile-login"
+                  >Đăng nhập</a
+                >
+              </li>
+              <li>
+                <a href="./index.html" class="navbar-link-item mobile-exit"
+                  >Thoát</a
+                >
+              </li>
             </ul>
           </div>
-  
+
           <div class="navbar-icon">
             <div class="navbar-log">
               <div class="log-in">
                 <span>
-                  <a class="log-in-icon" href="./index.html">
-                    Đăng nhập
-                  </a>
+                  <a class="log-in-icon" href="./index.html"> Đăng nhập </a>
                 </span>
               </div>
               <div class="register">
                 <span class="register-char">/</span>
-                <span><a class="register-icon" href="./register.html">Đăng ký</a></span>
+                <span
+                  ><a class="register-icon" href="./register.html"
+                    >Đăng ký</a
+                  ></span
+                >
               </div>
             </div>
-            <div class="hello ">
+            <div class="hello">
               <span>Chào!</span>
-              <span class="name-user "></span>
+              <span class="name-user"></span>
               <span>|</span>
               <a href="./index.html" class="exit">Thoát</a>
             </div>
@@ -102,7 +128,6 @@
               <span class="navbar-icon-item cart">
                 <i class="fas fa-cart-plus"></i>
                 <span class="quantity-item">0</span>
-  
               </span>
               <span class="navbar-icon-item search">
                 <i class="fas fa-search"></i>
@@ -119,37 +144,56 @@
           </div>
           <div class="col-xl-9 col-sm-12 main-right">
             <div>
-              <span >Họ và tên:</span>
+              <span>Họ và tên:</span>
               <span class="name"> </span>
             </div>
             <div>
-              <span >Email:</span>
+              <span>Email:</span>
               <span class="name-email"></span>
             </div>
             <div>
-              <span >Số điện thoại:</span>
+              <span>Số điện thoại:</span>
               <span class="name-phone"></span>
             </div>
             <div>
-              <span >Địa chỉ:</span>
+              <span>Địa chỉ:</span>
               <span class="name-address"></span>
             </div>
           </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <a href="./addFirebase.html"
+              ><button class="btn btn-primary mt-3 mb-3">
+                Thêm sản phẩm
+              </button></a
+            >
+            <a href="#"
+              ><button class="register_oder btn btn-primary mt-3 mb-3">
+                Đăng kí bán hàng
+              </button></a
+            >
+          </div>
+        </div>
+        <div class="product_user">
+          <h2 style="text-transform: uppercase">
+            Sản phẩm đã đăng bán của bạn
+          </h2>
+          <div class="main-product main-product-user"></div>
         </div>
       </div>
       <div class="footer">
         <div class="footer-content">
           <div class="footer-content-item">
             <div class="footer-content-img">
-              <img src="./assets/img/logo.webp" alt="">
+              <img src="./assets/img/logo.webp" alt="" />
             </div>
             <p>Đơn giản tinh tế cho tâm trí độc lập</p>
             <div class="footer-content-icon">
               <a href="#"><i class="fab fa-twitter"></i></a>
               <a href="#"><i class="fab fa-facebook"></i></a>
-  
+
               <a href="#"><i class="fab fa-instagram-square"></i></a>
-  
             </div>
           </div>
           <div class="footer-content-item">
@@ -172,7 +216,7 @@
                 <li>Tin khuyến mãi</li>
                 <li>Liên hệ</li>
                 <li>Địa chỉ cửa hàng</li>
-                <li>Chính sách bảo mật </li>
+                <li>Chính sách bảo mật</li>
               </ul>
             </div>
           </div>
@@ -188,14 +232,10 @@
               </ul>
             </div>
           </div>
-  
         </div>
-  
-  
-  
       </div>
     </div>
-    <div class="model-cart ">
+    <div class="model-cart">
       <div class="cart-container">
         <div class="cart-top">
           <div class="clear cart-top-close">
@@ -207,27 +247,23 @@
           <div class="cart-top-quantity">
             <span>1</span>
           </div>
-  
         </div>
-  
+
         <div class="array-empty"></div>
-        <div class="cart-center">
-        </div>
-  
+        <div class="cart-center"></div>
+
         <div class="cart-bottom">
           <div class="cart-bottom-price">
             <span>Tổng tiền:</span>
             <span class="total-price">0</span>
           </div>
-  
+
           <div class="cart-bottom-btn">
             <a href="#"> <button>Xem giỏ hàng</button></a>
             <a href="#"> <button>Thanh toán</button></a>
-  
           </div>
         </div>
       </div>
-  
     </div>
 
     <script
@@ -250,6 +286,6 @@
     ></script>
     <script src="./js/slick.js"></script>
     <script src="./js/main.js" type="module"></script>
-    <script src="./js/user.js"></script>
+    <script src="./js/user.js" type="module"></script>
   </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="./assets/img/logo.webp">
+    <link rel="icon" href="./assets/img/logo.webp" />
 
     <link
       rel="stylesheet"
@@ -29,56 +29,61 @@
     <!-- <link rel="stylesheet" href="./assets/css/contact.css" /> -->
     <!-- <link rel="stylesheet" href="./assets/css/introduce.css" /> -->
     <link rel="stylesheet" href="./assets/css/login.css" />
-    <link rel="stylesheet" href="./assets/css/reponsive.css">
+    <link rel="stylesheet" href="./assets/css/reponsive.css" />
 
     <title>Đăng Nhập</title>
   </head>
   <body>
     <div class="app">
-     
       <div class="main">
-          <div class="main-login">
-              <h1>ĐĂNG NHẬP</h1>
+        <div class="main-login">
+          <h1>ĐĂNG NHẬP</h1>
           <p class="mess"></p>
 
-              <form action="#" method="post" class="form-login">
-                  
-                  <div class="main-login-item">
-                    <div class="main-login-item-content">
-                        <span>Email</span>
-                        <span>*</span>
-                    </div>
-                    <input class="email" type="text" name="email" placeholder="mail@gmail.com">
-                   <p class="error error-email"></p>
-
-                </div>
-                <div class="main-login-item">
-                    <div class="main-login-item-content">
-                        <span>Mật khẩu</span>
-                        <span>*</span>
-                    </div>
-                    <input class="pwd" type="password" name="password" placeholder="Password">
+          <form action="#" method="post" class="form-login">
+            <div class="main-login-item">
+              <div class="main-login-item-content">
+                <span>Email</span>
+                <span>*</span>
+              </div>
+              <input
+                required
+                class="email"
+                type="text"
+                name="email"
+                placeholder="mail@gmail.com"
+              />
+              <p class="error error-email"></p>
+            </div>
+            <div class="main-login-item">
+              <div class="main-login-item-content">
+                <span>Mật khẩu</span>
+                <span>*</span>
+              </div>
+              <input
+                required
+                class="pwd"
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
               <p class="error error-pwd"></p>
+            </div>
 
-                </div>
-              
-                <button class="main-login-btn" type="submit">Đăng nhập</button>
-              </form>
-              <div class="footer-form">
-              <a class="main-login-return" href="./register.html">
-                <p>Đăng ký</p>
+            <button class="main-login-btn" type="submit">Đăng nhập</button>
+          </form>
+          <div class="footer-form">
+            <a class="main-login-return" href="./register.html">
+              <p>Đăng ký</p>
             </a>
-              <a class="main-login-return" href="./trangchu.html">
-                  <p>Quay về cửa hàng</p>
-              </a></div>
-             
-             
+            <a class="main-login-return" href="./trangchu.html">
+              <p>Quay về cửa hàng</p>
+            </a>
           </div>
+        </div>
       </div>
-
-     
     </div>
-    
+
     <script
       type="text/javascript"
       src="https://code.jquery.com/jquery-1.11.0.min.js"
@@ -92,9 +97,9 @@
       src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
     <script src="./js/slick.js"></script>
-    <script src="./js/main.js" type="module"></script>
-    <script src="./js/login.js"></script>
-    <script src="./js/user.js"></script>
 
+    <script src="./js/main.js" type="module"></script>
+    <script src="./js/login.js" type="module"></script>
+    <script src="./js/user.js"></script>
   </body>
 </html>

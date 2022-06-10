@@ -1,34 +1,39 @@
-.app{
+.app {
     overflow-x: hidden;
 }
+
 .main {
     height: fit-content;
 }
-.main h2{
+
+.main h2 {
     font-size: 3rem;
     text-align: center;
 }
 
-.search-product{
+.search-product {
 
     display: flex;
     justify-content: flex-end;
     margin-bottom: 12px;
 }
-.form-product{
+
+.form-product {
     display: flex;
     width: 500px;
     font-size: 1.5rem;
     gap: 0 8px;
-    
-    
+
+
 }
-.form-product input{
+
+.form-product input {
     flex: 1;
     padding: 8px;
     font-size: 1.2rem;
 }
-.form-product button{
+
+.form-product button {
     font-size: 1rem;
     padding: 12px;
     border: 0;
@@ -36,12 +41,15 @@
     color: #fff;
     border-radius: 4px;
 }
-.number-page{
+
+.number-page {
     text-align: center;
     margin: 8px 0;
+    margin-top: 1400px;
 
 }
-.nunber-page-list{
+
+.nunber-page-list {
     display: inline-block;
     padding: 12px;
     border: 1px solid #ccc;
@@ -49,25 +57,31 @@
     width: 50px;
     height: 50px;
 }
-.main-product-2{
+
+.main-product-2 {
     position: relative;
+    display: block;
+    /* height: 100vh; */
 }
-.page-product{
+
+.page-product {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 12px;
     transform: translateX(105%);
-    position:absolute;
+    position: absolute;
     transition: all 2s ease;
     visibility: hidden;
     opacity: 0;
 }
-.page-product.active{
+
+.page-product.active {
     transform: translateX(0);
     visibility: visible;
     opacity: 1;
 
 }
+
 .nunber-page-list.active {
     background-color: var(--hover-color);
     color: #fff;
