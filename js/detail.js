@@ -4,8 +4,6 @@ import {
   selectAllData,
   removeData,
 } from "./controler.js";
-import "gitalk/dist/gitalk.css";
-import Gitalk from "gitalk";
 window.addEventListener("load", async function () {
   let infoUser = JSON.parse(window.localStorage.getItem("login")) || false;
   let detailInfo = JSON.parse(window.localStorage.getItem("detail"));
@@ -88,4 +86,16 @@ window.addEventListener("load", async function () {
       return;
     }
   });
+
+  const gitalk = new Gitalk({
+    clientID: "ca92579ba9581edc9778",
+    clientSecret: "a4c124fd469e6168048067bcefcdbb89a876e1d4",
+    repo: "https://github.com/settings/applications/1925664", // The repository of store comments,
+    owner: "https://github.com/minh352623",
+    admin: ["https://github.com/minh352623"],
+    id: location.href, // Ensure uniqueness and length less than 50
+    distractionFreeMode: false, // Facebook-like distraction free mode
+  });
+
+  gitalk.render("gitalk-container");
 });
