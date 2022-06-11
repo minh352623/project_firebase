@@ -63,7 +63,7 @@ formLogin.addEventListener("submit", async function (e) {
 
         mess.style.padding = "0 ";
       }
-    }, 1500);
+    }, 1800);
   });
 
   // }, 1500);
