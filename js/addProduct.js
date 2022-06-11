@@ -23,27 +23,37 @@ window.addEventListener("load", function () {
   }
   addItem.addEventListener("click", function (e) {
     console.log("abc");
-    let data = {
-      name: name.value,
-      link: link.value,
-      price: +price.value,
-      userId: infoUser.id,
-    };
-    insertData("products", data);
-    setTimeout(function () {
-      fromAdd.reset();
-    }, 1500);
+    if (name.value && link.value && price.value) {
+      let data = {
+        name: name.value,
+        link: link.value,
+        price: +price.value,
+        userId: infoUser.id,
+      };
+      insertData("products", data);
+      setTimeout(function () {
+        fromAdd.reset();
+        alert("Thêm thành công");
+      }, 1500);
+    } else {
+      alert("Thông tin bắt buộc phải nhập!");
+    }
   });
   updateItem.addEventListener("click", function (e) {
-    let data = {
-      name: name.value,
-      link: link.value,
-      price: +price.value,
-    };
-    updateData("products", edit.id, data);
-    setTimeout(function () {
-      fromAdd.reset();
-      localStorage.removeItem("edit");
-    }, 1500);
+    if (name.value && link.value && price.value) {
+      let data = {
+        name: name.value,
+        link: link.value,
+        price: +price.value,
+      };
+      updateData("products", edit.id, data);
+      setTimeout(function () {
+        fromAdd.reset();
+        localStorage.removeItem("edit");
+        alert("Cập nhật thành công");
+      }, 1500);
+    } else {
+      alert("Thông tin bắt buộc phải nhập!");
+    }
   });
 });

@@ -8,13 +8,12 @@ import {
 } from "./controler.js";
 
 window.addEventListener("load", async function () {
- 
   const mainProductItem = document.querySelectorAll(".main-product-item");
   const product = await selectAllData("products");
   //console.log(product);
 
   // //console.log(mainProductItem);
-  loadItem(product, mainProductItem);
+  loadItem(product.reverse(), mainProductItem);
 
   const productContainerBtn = document.querySelector(".product-container-btn");
   const productContainerBtnB = document.querySelector(
