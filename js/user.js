@@ -62,12 +62,25 @@ window.addEventListener("load", async function () {
 
     listOnline.innerHTML = "";
     let userOnline = [];
+    //load online
+
+    dataOnline.forEach((item1, key1) => {
+      dataOnline.forEach((item2, key2) => {
+        if (key1 != key2) {
+          if (item1.userId == item2.userId) {
+            dataOnline.splice(key1, 1);
+          }
+        }
+      });
+    });
     dataOnline.forEach(async (item, key) => {
       userOnline.push(item.userId);
       let dataUser = await selectOneData("users", item.userId);
       item.name = dataUser.name;
       renderUserOnline(item, 1);
     });
+
+    //
     console.log(userOnline);
     let filterData = [];
     dataOffline.forEach((item) => {
@@ -75,7 +88,7 @@ window.addEventListener("load", async function () {
         filterData.push(item);
       }
     });
-
+    //load ofline
     userOnline.forEach((item1, key1) => {
       filterData.forEach((item2, key) => {
         if (item2.id == item1) {
