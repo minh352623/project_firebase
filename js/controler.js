@@ -86,7 +86,7 @@ function insertData(table, data) {
         idComment++;
         set(ref(db, `${table}/` + idComment), { id: idComment, ...data })
           .then(() => {
-            alert("data stored successfully");
+            // alert("data stored successfully");
           })
           .catch((err) => {
             alert("unsuccessfully,error " + err);
@@ -97,7 +97,7 @@ function insertData(table, data) {
       } else {
         set(ref(db, `${table}/` + 1), { id: idComment, ...data })
           .then(() => {
-            alert("data stored successfully");
+            // alert("data stored successfully");
           })
           .catch((err) => {
             alert("unsuccessfully,error " + err);

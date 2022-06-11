@@ -25,7 +25,7 @@ window.addEventListener("load", async function () {
 
   const listOnline = document.querySelector(".list-user");
   //console.log(infoUser);
-  online_user.addEventListener("click", function () {
+  online_user?.addEventListener("click", function () {
     container_online.classList.toggle("hidden");
   });
 
