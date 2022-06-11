@@ -1,5 +1,15 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
+import {
+  getDatabase,
+  ref,
+  set,
+  get,
+  child,
+  update,
+  remove,
+  onChildAdded,
+} from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -15,16 +25,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-import {
-  getDatabase,
-  ref,
-  set,
-  get,
-  child,
-  update,
-  remove,
-} from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js";
-const db = getDatabase();
+
+const db = getDatabase(app);
 // const name = document.querySelector(".name");
 
 // const content = document.querySelector(".content");
@@ -179,6 +181,68 @@ function removeData(table, idComment) {
       alert("unsuccessfully remove,error " + err);
     });
 }
+function render(comment, containerCm, option = "") {
+  let template = `
+    <div class="item-comment">
+    <div class="img">
+      <img
+        src="${
+          comment.link
+            ? comment.link
+            : "https://scontent.fsgn8-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=u48kjs1VcZQAX_jZqwO&tn=0VUPuZx5PzuZcB2Q&_nc_ht=scontent.fsgn8-2.fna&oh=00_AT9tPTj-uvJvf2MUcdXcAOSphmXURt9iuKK-XVfjIYu4xQ&oe=62CA77F8"
+        }"
+        alt=""
+      />
+    </div>
+    <div class="content">
+    <div class="d-flex justify-content-between">
+
+    <p style="font-weight:bold;">${comment.nameUser} </p>
+    <span>${comment.createAt}</span>
+    </div> 
+    <div class="option" data-id="${comment.id}">
+    <p style="font-size:20px;">
+        ${comment.content}
+      </p>
+
+      <div>
+        ${option != "" ? option : ""}
+      </div>
+    </div>
+   
+    </div>
+  </div>
+    
+    `;
+  containerCm.insertAdjacentHTML("afterbegin", template);
+}
+function realtimeComment(detailInfo, containerCm, infoUser) {
+  const newMsg = ref(db, "comments/");
+  onChildAdded(newMsg, async (data) => {
+    console.log(data.val());
+    // containerCm.innerHTML = "";
+    if (data.val().itemId == detailInfo) {
+      let dataUsers = await selectOneData("users", data.val().userId);
+
+      let dataLast = {
+        ...data.val(),
+        nameUser: dataUsers.name,
+      };
+      if (dataLast.userId == infoUser.id) {
+        render(
+          dataLast,
+          containerCm,
+          `<span class="edit-comment"><i class="fa-solid fa-pen-to-square"></i></span>
+            <span class="delete-comment"><i class="fa-solid fa-trash-can"></i></span>`
+        );
+      } else {
+        render(dataLast, containerCm);
+      }
+    }
+  });
+  // console.log(arr);
+  // resolve(arr);
+}
 // create.addEventListener("click", insertData);
 // create.addEventListener("click", async function (e) {
 //   await insertData();
@@ -187,6 +251,8 @@ function removeData(table, idComment) {
 //     commentfrom.reset();
 //   }, 2000);
 // });
+export { realtimeComment };
+
 export { insertData };
 export { updateData };
 export { selectAllData };
