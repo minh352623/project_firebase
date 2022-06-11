@@ -5,6 +5,8 @@ import {
   selectOneData,
   removeData,
   realtimeComment,
+  realtimeCommentUpdate,
+  realtimeCommentDelete,
 } from "./controler.js";
 window.addEventListener("load", async function () {
   let infoUser = JSON.parse(window.localStorage.getItem("login")) || false;
@@ -104,7 +106,41 @@ window.addEventListener("load", async function () {
 
   //comment
   const containerCm = document.querySelector(".container_comment");
+  function render(comment, option = "") {
+    let template = `
+      <div class="item-comment">
+      <div class="img">
+        <img
+          src="${
+            comment.link
+              ? comment.link
+              : "https://scontent.fsgn8-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=u48kjs1VcZQAX_jZqwO&tn=0VUPuZx5PzuZcB2Q&_nc_ht=scontent.fsgn8-2.fna&oh=00_AT9tPTj-uvJvf2MUcdXcAOSphmXURt9iuKK-XVfjIYu4xQ&oe=62CA77F8"
+          }"
+          alt=""
+        />
+      </div>
+      <div class="content">
+      <div class="d-flex justify-content-between">
 
+      <p style="font-weight:bold;">${comment.nameUser} </p>
+      <span>${comment.createAt}</span>
+      </div> 
+      <div class="option" data-id="${comment.id}">
+      <p style="font-size:20px;">
+          ${comment.content}
+        </p>
+
+        <div>
+          ${option != "" ? option : ""}
+        </div>
+      </div>
+     
+      </div>
+    </div>
+      
+      `;
+    containerCm.insertAdjacentHTML("afterbegin", template);
+  }
   function caretaDate() {
     let today = new Date();
     const yyyy = today.getFullYear();
@@ -121,9 +157,40 @@ window.addEventListener("load", async function () {
     today = hh + ":" + minus + "  " + dd + "/" + mm + "/" + yyyy;
     return today;
   }
+  //console.log(date);
   const inputCm = document.querySelector(".input_comment");
   const btnCm = document.querySelector(".add-comment");
-
+  async function showComment() {
+    const realdata = await selectAllData("comments");
+    let dataSuccess = realdata;
+    console.log(dataSuccess);
+    //console.log(data);
+    let filterData = [];
+    for (let i = 0; i < dataSuccess.length; i++) {
+      if (dataSuccess[i]) {
+        filterData.push(dataSuccess[i]);
+      }
+    }
+    console.log(filterData);
+    //console.log(filterData);
+    containerCm.innerHTML = "";
+    filterData.forEach(async (item, key) => {
+      if (item.itemId == detailInfo) {
+        let dataUsers = await selectOneData("users", item.userId);
+        // //console.log(dataUsers);
+        item.nameUser = dataUsers.name;
+        if (item.userId == infoUser.id) {
+          render(
+            item,
+            `<span class="edit-comment"><i class="fa-solid fa-pen-to-square"></i></span>
+            <span class="delete-comment"><i class="fa-solid fa-trash-can"></i></span>`
+          );
+        } else {
+          render(item);
+        }
+      }
+    });
+  }
   const formCm = document.querySelector(".form_comment");
   btnCm.addEventListener("click", function () {
     if (!infoUser) {
@@ -149,7 +216,8 @@ window.addEventListener("load", async function () {
   });
   realtimeComment(detailInfo, containerCm, infoUser);
   //   //console.log(dataCom);
-
+  realtimeCommentUpdate(containerCm, infoUser);
+  realtimeCommentDelete(containerCm, infoUser);
   //xóa comment and sửa comments
   const updateBtn = document.querySelector(".update-comment");
 
@@ -183,6 +251,7 @@ window.addEventListener("load", async function () {
             console.log("show 2");
 
             formCm.reset();
+            changeText.textContent = "Bình luận";
 
             updateBtn.style.display = "none";
             btnCm.style.display = "block";

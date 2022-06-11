@@ -9,6 +9,8 @@ import {
   update,
   remove,
   onChildAdded,
+  onChildChanged,
+  onChildRemoved,
 } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -219,7 +221,8 @@ function render(comment, containerCm, option = "") {
 function realtimeComment(detailInfo, containerCm, infoUser) {
   const newMsg = ref(db, "comments/");
   onChildAdded(newMsg, async (data) => {
-    console.log(data.val());
+    console.log("upadte or delete");
+    // console.log(data.val());
     // containerCm.innerHTML = "";
     if (data.val().itemId == detailInfo) {
       let dataUsers = await selectOneData("users", data.val().userId);
@@ -243,6 +246,71 @@ function realtimeComment(detailInfo, containerCm, infoUser) {
   // console.log(arr);
   // resolve(arr);
 }
+function realtimeCommentUpdate(containerCm, infoUser) {
+  const newMsg = ref(db, "comments/");
+  onChildChanged(newMsg, async (data) => {
+    let idChangeProduct = data.val().itemId;
+    // console.log(idChangeProduct);
+    let dataComment = await selectAllData("comments");
+    if (dataComment.length > 0) {
+      dataComment.forEach(async (comment) => {
+        if (comment.itemId == idChangeProduct) {
+          let dataUsers = await selectOneData("users", comment.userId);
+
+          let dataLast = {
+            ...comment,
+            nameUser: dataUsers.name,
+          };
+          if (dataLast.userId == infoUser.id) {
+            render(
+              dataLast,
+              containerCm,
+              `<span class="edit-comment"><i class="fa-solid fa-pen-to-square"></i></span>
+            <span class="delete-comment"><i class="fa-solid fa-trash-can"></i></span>`
+            );
+          } else {
+            render(dataLast, containerCm);
+          }
+        }
+      });
+    }
+  });
+  // console.log(arr);
+  // resolve(arr);
+}
+function realtimeCommentDelete(containerCm, infoUser) {
+  const newMsg = ref(db, "comments/");
+  onChildRemoved(newMsg, async (data) => {
+    // console.log(data.val());
+    let idChangeProduct = data.val().itemId;
+    // console.log(idChangeProduct);
+    let dataComment = await selectAllData("comments");
+    if (dataComment.length > 0) {
+      dataComment.forEach(async (comment) => {
+        if (comment.itemId == idChangeProduct) {
+          let dataUsers = await selectOneData("users", comment.userId);
+
+          let dataLast = {
+            ...comment,
+            nameUser: dataUsers.name,
+          };
+          if (dataLast.userId == infoUser.id) {
+            render(
+              dataLast,
+              containerCm,
+              `<span class="edit-comment"><i class="fa-solid fa-pen-to-square"></i></span>
+            <span class="delete-comment"><i class="fa-solid fa-trash-can"></i></span>`
+            );
+          } else {
+            render(dataLast, containerCm);
+          }
+        }
+      });
+    }
+  });
+  // console.log(arr);
+  // resolve(arr);
+}
 // create.addEventListener("click", insertData);
 // create.addEventListener("click", async function (e) {
 //   await insertData();
@@ -252,6 +320,8 @@ function realtimeComment(detailInfo, containerCm, infoUser) {
 //   }, 2000);
 // });
 export { realtimeComment };
+export { realtimeCommentUpdate };
+export { realtimeCommentDelete };
 
 export { insertData };
 export { updateData };
