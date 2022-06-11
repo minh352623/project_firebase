@@ -6,24 +6,22 @@ import {
   selectOneData,
   removeData,
 } from "./controler.js";
-// let islogin = JSON.parse(localStorage.getItem("login")) || [];
-// console.log(islogin);
+
 window.addEventListener("load", async function () {
-  // const data = await selectOneData("products", 2);
-  // console.log(data);
+ 
   const mainProductItem = document.querySelectorAll(".main-product-item");
   const product = await selectAllData("products");
-  console.log(product);
+  //console.log(product);
 
-  console.log(mainProductItem);
+  // //console.log(mainProductItem);
   loadItem(product, mainProductItem);
 
   const productContainerBtn = document.querySelector(".product-container-btn");
   const productContainerBtnB = document.querySelector(
     ".product-container-btn button"
   );
-  console.log(productContainerBtnB);
-  console.log(productContainerBtn);
+  //console.log(productContainerBtnB);
+  //console.log(productContainerBtn);
 
   const heightAuto = document.querySelector(".main-product");
   productContainerBtn?.addEventListener("click", function () {
@@ -37,7 +35,7 @@ window.addEventListener("load", async function () {
   const clear = document.querySelector(".clear i");
   const clearcontainer = document.querySelector(".clear");
   const cartContainer = document.querySelector(".cart-container");
-  console.log(clear);
+  //console.log(clear);
   cart?.addEventListener("click", function (e) {
     modelCart.classList.add("active");
   });
@@ -56,7 +54,7 @@ window.addEventListener("load", async function () {
 
   // add cart
   let infoUser = JSON.parse(window.localStorage.getItem("login")) || false;
-  console.log(infoUser.id);
+  //console.log(infoUser.id);
   let arrayItem = [];
 
   async function handleAddCart(e) {
@@ -66,7 +64,7 @@ window.addEventListener("load", async function () {
       window.location.href = "./detail.html";
     }
     // arrayItem = JSON.parse(window.localStorage.getItem("listItem")) || [];
-    console.log(arrayItem);
+    //console.log(arrayItem);
     if (e.target.matches(".icon-cart") || e.target.matches(".icon-cart i")) {
       arrayItem = (await selectAllData("carts")) || [];
       let item = {
@@ -84,7 +82,7 @@ window.addEventListener("load", async function () {
       let keyUp;
       if (arrayItem.length > 0) {
         arrayItem.forEach((value, key) => {
-          console.log(key);
+          //console.log(key);
           if (item.id == value.id) {
             if (value.user == item.user) {
               index = 2;
@@ -98,12 +96,12 @@ window.addEventListener("load", async function () {
       }
 
       if (index == 2) {
-        console.log("acb");
+        //console.log("acb");
         item.number = number + item.number;
         updateData("carts", keyUp, item);
       } else {
         if (index == -1 || arrayItem.length == 0) {
-          console.log("abc");
+          //console.log("abc");
           insertData("carts", item);
         }
       }
@@ -143,7 +141,7 @@ window.addEventListener("load", async function () {
   async function showCart() {
     // arrayItem = JSON.parse(window.localStorage.getItem("listItem")) || []; // lấy dữ liệu từ local
     let arrayItem = (await selectAllData("carts")) || [];
-    console.log(arrayItem);
+    //console.log(arrayItem);
     cartCenter ? (cartCenter.innerHTML = "") : null; // reset cart
     if (arrayItem.length > 0) {
       arrayItem.forEach((item, key) => {
@@ -182,7 +180,7 @@ window.addEventListener("load", async function () {
   }
   const header = document.querySelector(".header");
   let heightHeader = header && header.offsetHeight;
-  console.log(heightHeader);
+  //console.log(heightHeader);
   window.addEventListener("scroll", function (e) {
     let scrollY = window.pageYOffset;
     if (scrollY > heightHeader) {
@@ -224,7 +222,7 @@ window.addEventListener("load", async function () {
   navLink?.addEventListener("click", function () {
     this.classList.remove("active");
   });
-  console.log(navLink);
+  //console.log(navLink);
   menu?.addEventListener("click", function () {
     navLink.classList.add("active");
   });

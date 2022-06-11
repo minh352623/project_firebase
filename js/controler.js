@@ -36,7 +36,7 @@ const db = getDatabase();
 // const deletE = document.querySelector("#delete");
 // const container = document.querySelector(".container");
 // const commentfrom = document.querySelector(".comment-from");
-// console.log(container);
+// //console.log(container);
 function rederComments(item) {
   let template = `
         <div class="item">
@@ -62,27 +62,27 @@ function insertData(table, data) {
             Arr[key] = snapshot.val()[key];
           }
           Arr.forEach((val, key) => {
-            // console.log(val.id);
+            // //console.log(val.id);
             if (+key > idComment) {
-              console.log(val.id);
+              //console.log(val.id);
               idComment = +key;
             }
 
             // data.push({ ...val });
           });
         } else {
-          // console.log(snapshot.val());
+          // //console.log(snapshot.val());
           snapshot.val().forEach((val, key) => {
-            // console.log(val.id);
+            // //console.log(val.id);
             if (+key > idComment) {
-              console.log(key);
+              //console.log(key);
               idComment = +key;
             }
 
             // data.push({ ...val });
           });
         }
-        // console.log(idComment);
+        // //console.log(idComment);
         idComment++;
         set(ref(db, `${table}/` + idComment), { id: idComment, ...data })
           .then(() => {
@@ -103,7 +103,7 @@ function insertData(table, data) {
             alert("unsuccessfully,error " + err);
           });
       }
-      // console.log(data);
+      // //console.log(data);
     })
     .catch((error) => {
       alert("Error Select " + error);
@@ -118,9 +118,9 @@ function selectAllData(table) {
       .then((snapshot) => {
         if (snapshot.exists()) {
           if (Array.isArray(snapshot.val()) != false) {
-            console.log(snapshot.val());
-            console.log("abc");
-            // console.log("abc");
+            //console.log(snapshot.val());
+            //console.log("abc");
+            // //console.log("abc");
             snapshot.val().forEach((val, key) => {
               data[key] = val;
             });
@@ -133,7 +133,7 @@ function selectAllData(table) {
         } else {
           resolve([]);
         }
-        // console.log(data);
+        // //console.log(data);
       })
 
       .catch((error) => {
@@ -148,12 +148,12 @@ function selectOneData(table, idComment) {
     get(child(dbref, `${table}/${idComment}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
-          // console.log("abc");
+          // //console.log("abc");
           resolve(snapshot.val());
         } else {
           alert("No data found");
         }
-        // console.log(data);
+        // //console.log(data);
       })
 
       .catch((error) => {
@@ -164,7 +164,7 @@ function selectOneData(table, idComment) {
 function updateData(table, idComment, data) {
   update(ref(db, `${table}/${idComment}`), { ...data })
     .then(() => {
-      alert("data update stored successfully");
+      // alert("data update stored successfully");
     })
     .catch((err) => {
       alert("unsuccessfully update,error " + err);
@@ -173,7 +173,7 @@ function updateData(table, idComment, data) {
 function removeData(table, idComment) {
   remove(ref(db, `${table}/${idComment}`))
     .then(() => {
-      alert("data remove stored successfully");
+      // alert("data remove stored successfully");
     })
     .catch((err) => {
       alert("unsuccessfully remove,error " + err);
