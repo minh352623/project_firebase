@@ -53,14 +53,14 @@ window.addEventListener("load", async function () {
     <span class="info-user_online">${item.name} </span>
   </li>
     `;
-    listOnline.insertAdjacentHTML("beforeend", template);
+    listOnline?.insertAdjacentHTML("beforeend", template);
   }
 
   async function loadUserOnline() {
     const dataOnline = await selectAllData("loginToken");
     const dataOffline = await selectAllData("users");
 
-    listOnline.innerHTML = "";
+    listOnline ? (listOnline.innerHTML = "") : "";
     let userOnline = [];
     //load online
 
