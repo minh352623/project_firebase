@@ -22,3 +22,31 @@
 .main-product-user {
     height: auto;
 }
+
+.main-product-item {
+    position: relative;
+}
+
+.edit-item,
+.delete-item {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 12px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.edit-item:hover,
+.delete-item:hover {
+    transform: scale(1.2)
+}
+
+.edit-item {
+    color: rgb(201, 201, 44);
+}
+
+.delete-item {
+    top: 10%;
+    color: rgb(171, 30, 30);
+}

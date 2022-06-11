@@ -133,3 +133,36 @@
     overflow-y: auto;
     ;
 }
+
+.option {
+    position: relative;
+}
+
+.edit-comment,
+.delete-comment {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 8px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.edit-comment:hover,
+.delete-comment:hover {
+    transform: scale(1.2)
+}
+
+.edit-comment {
+    color: rgb(201, 201, 44);
+    right: 40px;
+}
+
+.delete-comment {
+    top: 10%;
+    color: rgb(171, 30, 30);
+}
+
+.update-comment {
+    display: none;
+}

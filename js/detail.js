@@ -2,11 +2,12 @@ import {
   insertData,
   updateData,
   selectAllData,
+  selectOneData,
   removeData,
 } from "./controler.js";
 window.addEventListener("load", async function () {
   let infoUser = JSON.parse(window.localStorage.getItem("login")) || false;
-  console.log(infoUser);
+  //console.log(infoUser);
   let detailInfo = JSON.parse(window.localStorage.getItem("detail"));
   let containerDetail = document.querySelector(".product-container-detail");
   const data = await selectAllData("products");
@@ -82,7 +83,7 @@ window.addEventListener("load", async function () {
   }
   data.forEach((item) => {
     if (item.id == detailInfo) {
-      //   console.log(item);
+      //   //console.log(item);
       renderDetail(item);
       return;
     }
@@ -102,7 +103,7 @@ window.addEventListener("load", async function () {
 
   //comment
   const containerCm = document.querySelector(".container_comment");
-  function render(comment) {
+  function render(comment, option = "") {
     let template = `
       <div class="item-comment">
       <div class="img">
@@ -120,11 +121,17 @@ window.addEventListener("load", async function () {
 
       <p style="font-weight:bold;">${comment.nameUser} </p>
       <span>${comment.createAt}</span>
-      </div>
+      </div> 
+      <div class="option" data-id="${comment.id}">
       <p style="font-size:20px;">
           ${comment.content}
         </p>
-        <p></p>
+
+        <div>
+          ${option != "" ? option : ""}
+        </div>
+      </div>
+     
       </div>
     </div>
       
@@ -136,28 +143,46 @@ window.addEventListener("load", async function () {
     const yyyy = today.getFullYear();
     let mm = today.getMonth() + 1; // Months start at 0!
     let dd = today.getDate();
+    let hh = today.getHours();
+    let minus = today.getMinutes();
 
     if (dd < 10) dd = "0" + dd;
     if (mm < 10) mm = "0" + mm;
+    if (hh < 10) hh = "0" + hh;
+    if (minus < 10) minus = "0" + minus;
 
-    today = dd + "/" + mm + "/" + yyyy;
+    today = hh + ":" + minus + "  " + dd + "/" + mm + "/" + yyyy;
     return today;
   }
   let date = caretaDate();
-  console.log(date);
+  //console.log(date);
   const inputCm = document.querySelector(".input_comment");
   const btnCm = document.querySelector(".add-comment");
   async function showComment() {
     let data = await selectAllData("comments");
+    //console.log(data);
+    let filterData = [];
     for (let i = 0; i < data.length; i++) {
-      if (!data[i]) {
-        data.splice(i, 1);
+      if (data[i]) {
+        filterData.push(data[i]);
       }
     }
+    //console.log(filterData);
     containerCm.innerHTML = "";
-    data.forEach((item, key) => {
+    filterData.forEach(async (item, key) => {
       if (item.itemId == detailInfo) {
-        render(item);
+        let dataUsers = await selectOneData("users", item.userId);
+        // //console.log(dataUsers);
+        item.nameUser = dataUsers.name;
+        if (item.userId == infoUser.id) {
+          render(
+            item,
+            `<span class="edit-comment"><i class="fa-solid fa-pen-to-square"></i></span>
+          <span class="delete-comment"><i class="fa-solid fa-trash-can"></i></span>`
+          );
+        } else {
+          render(item);
+        }
       }
     });
   }
@@ -172,18 +197,66 @@ window.addEventListener("load", async function () {
       let data = {
         content: value,
         userId: infoUser.id,
-        nameUser: infoUser.name,
-        linkImg: infoUser.img ? infoUser.img : "",
+
         itemId: detailInfo,
         createAt: date,
       };
       insertData("comments", data);
     }
     setTimeout(function () {
+      console.log("show 1");
       showComment();
       formCm.reset();
-    }, 1500);
+    }, 1000);
   });
   showComment();
-  //   console.log(dataCom);
+  //   //console.log(dataCom);
+
+  //xóa comment and sửa comments
+  const updateBtn = document.querySelector(".update-comment");
+
+  const changeText = document.querySelector(".change_text");
+  containerCm.addEventListener("click", async function (e) {
+    if (e.target.matches(".delete-comment i")) {
+      let idComment = e.target.parentNode.parentNode.parentNode.dataset.id;
+      //console.log(idComment);
+      removeData("comments", +idComment);
+      setTimeout(function () {
+        showComment();
+      }, 1000);
+    }
+    //sửa comments
+    if (e.target.matches(".edit-comment i")) {
+      let idComment = e.target.parentNode.parentNode.parentNode.dataset.id;
+      //console.log(idComment);
+      let itemComment = await selectOneData("comments", idComment);
+      //console.log(itemComment);
+      inputCm.value = itemComment.content;
+      changeText.textContent += ": Bạn đang sửa bình luận";
+
+      window.location.href = "./detail.html#form_comment";
+      updateBtn.style.display = "block";
+      btnCm.style.display = "none";
+      updateBtn.onclick = function () {
+        if (inputCm.value != "") {
+          let data = {
+            ...itemComment,
+            content: inputCm.value,
+          };
+          updateData("comments", idComment, data);
+          setTimeout(function () {
+            console.log("show 2");
+
+            showComment();
+            formCm.reset();
+
+            updateBtn.style.display = "none";
+            btnCm.style.display = "block";
+          }, 500);
+        } else {
+          alert("Ban phải nhập bình luân mới sữa được chứ :)!");
+        }
+      };
+    }
+  });
 });

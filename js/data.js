@@ -34,28 +34,44 @@ function renderItem(item) {
 
 async function loadItem(arrayItem, itemCart) {
   let array = 0;
+  let filterArr = [];
   for (let i = 0; i < arrayItem.length; i++) {
-    if (!arrayItem[i]) {
+    if (
+      !arrayItem[i] ||
+      arrayItem[i] === "" ||
+      typeof arrayItem[i] === "undefined"
+    ) {
       arrayItem.splice(i, 1);
     }
+    if (arrayItem[i]) {
+      filterArr.push(arrayItem[i]);
+    }
   }
+  console.log(filterArr);
   if (arrayItem.length > itemCart.length) {
     array = itemCart.length;
   } else {
     array = arrayItem.length;
   }
-  for (let i = 0; i < array; i++) {
-    let item = arrayItem[i];
+  let data = [];
 
-    let data = [];
-    if (item.userId) {
-      // console.log("abc");
-      data = await selectOneData("users", item.userId);
-      // console.log(data);
+  filterArr.forEach(async function (item, key) {
+    if (typeof item != "undefined") {
+      if (item.userId) {
+        // //console.log("abc");
+        data = await selectOneData("users", item.userId);
+        // //console.log(data);
+        item.user = data.name;
+        itemCart[key]?.insertAdjacentHTML("beforeend", renderItem(item));
+      }
     }
-    item.user = data.name;
-    itemCart[i].insertAdjacentHTML("beforeend", renderItem(item));
-  }
+  });
+  // for (let i = 0; i < array; i++) {
+  //   let item = arrayItem[i];
+
+  //   //console.log(typeof item);
+
+  // }
 }
 
 function formatMoney(num) {
