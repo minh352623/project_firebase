@@ -12,6 +12,7 @@ import {
   onChildChanged,
   onChildRemoved,
 } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js";
+import { formatMoney } from "./data.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -41,17 +42,6 @@ const db = getDatabase(app);
 // const container = document.querySelector(".container");
 // const commentfrom = document.querySelector(".comment-from");
 // //console.log(container);
-function rederComments(item) {
-  let template = `
-        <div class="item">
-        <h2>${item.name}</h2>
-        <p>
-          ${item.content}
-        </p>
-      </div>
-        `;
-  container.insertAdjacentHTML("beforeend", template);
-}
 
 var idComment = 1;
 function insertData(table, data) {
@@ -311,20 +301,246 @@ function realtimeCommentDelete(containerCm, infoUser) {
   // console.log(arr);
   // resolve(arr);
 }
-// create.addEventListener("click", insertData);
-// create.addEventListener("click", async function (e) {
-//   await insertData();
-//   e.preventDefault();
-//   setTimeout(() => {
-//     commentfrom.reset();
-//   }, 2000);
-// });
+function realtimeCartsDelete(
+  cartCenter,
+  infoUser,
+  arrayEmpty = "",
+  totalPrice = "",
+  quantityItem = "",
+  cartTopQuantity = ""
+) {
+  const newMsg = ref(db, "carts/");
+  onChildRemoved(newMsg, async (data) => {
+    console.log("cart cahnge");
+    showCart(
+      cartCenter,
+      infoUser,
+      arrayEmpty,
+      totalPrice,
+      quantityItem,
+      cartTopQuantity
+    );
+  });
+  // console.log(arr);
+  // resolve(arr);
+}
+function createItem(item, key) {
+  let template = `
+      <div class="cart-center-item "  >
+      <div class="cart-center-item-img" >
+        <img src="${item.link}" alt="">
+      </div>
+      <div class="cart-center-item-info">
+        <div class="cart-center-info-name">
+          <span class="cart-center-info-name-js">${item.name}</span>
+          <span class="cart-center-info-name-clear " data-id=${key}><i class="fas fa-trash-alt"></i></span>
+        </div>
+        <div class="cart-center-info-qty">
+          <span>QTY:</span>
+          <span class="cart-center-info-qty-number"> ${item.number}</span>
+      
+        </div>
+        <div class="cart-center-info-price">
+          <span class="cart-center-info-prices">${item.price}</span>
+          <span>đ</span>
+        </div>
+      </div>
+    
+    </div>`;
+  return template;
+}
+async function showCart(
+  cartCenter,
+  infoUser,
+  arrayEmpty = "",
+  totalPrice = "",
+  quantityItem = "",
+  cartTopQuantity = ""
+) {
+  // arrayItem = JSON.parse(window.localStorage.getItem("listItem")) || []; // lấy dữ liệu từ local
+  let arrayItem = (await selectAllData("carts")) || [];
+  //console.log(arrayItem);
+  cartCenter ? (cartCenter.innerHTML = "") : null; // reset cart
+  if (arrayItem.length > 0) {
+    arrayItem.forEach((item, key) => {
+      if (item.user === infoUser.id) {
+        cartCenter?.insertAdjacentHTML("beforeend", createItem(item, key));
+      }
+    });
+    arrayEmpty ? (arrayEmpty.textContent = "") : null;
+  } else {
+    arrayEmpty ? (arrayEmpty.textContent = "NO PRODUCTS") : null;
+  }
+  sumMoney(infoUser, totalPrice, quantityItem, cartTopQuantity);
+}
+async function sumMoney(
+  infoUser,
+  totalPrice = "",
+  quantityItem = "",
+  cartTopQuantity = ""
+) {
+  let sum = 0;
+  let sumNumber = 0;
+  let arrayItem = (await selectAllData("carts")) || [];
+
+  arrayItem.forEach((item, index) => {
+    if (item.user == infoUser.id) {
+      sum += item.price * item.number;
+      sumNumber += item.number;
+    }
+  });
+  totalPrice ? (totalPrice.textContent = `${formatMoney(sum)} đ`) : null;
+  quantityItem ? (quantityItem.textContent = `${sumNumber}`) : null;
+  cartTopQuantity ? (cartTopQuantity.textContent = `${sumNumber}`) : null;
+}
+
+//order
+function renderOrder(container, item) {
+  let template = `
+  <div class="col-12 mt-3" >
+  <div class="oder_item">
+    <div class="row playout_order">
+      <div class="col-2">
+        <div class="img">
+          <img
+            src="${item.link}"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="col-2">
+        <p class="order_name" style="color:#ff871d;">${item.name}</p>
+      </div>
+      <div class="col-3" >
+      <span>Giá: </span>
+        <span class="price" >${item.price}</span>
+        <span>đ</span>
+        <p>${item.createAt}</p>
+      </div>
+      <div class="col-4">
+        <span>Số lượng: </span>
+        <span class="number_order">${item.number}</span>
+
+        <p style="color:#ff871d;"> Trạng thái: ${
+          item.status == 0
+            ? "Đang chờ xác nhận"
+            : item.status == 1
+            ? "Đã xác nhận. Đang vận chuyển"
+            : "Đã nhận"
+        }</p>
+      </div>
+      <div class="col-1" data-id=${item.id} data-create="${item.createAt}">
+        <span class="remove_order"><i class="fa-solid fa-trash-can"></i></span>
+      </div>
+    </div>
+  </div>
+</div>  
+  `;
+  container?.insertAdjacentHTML("beforeend", template);
+}
+function realtimeOrder(container, infoUser) {
+  const newMsg = ref(db, "orders/");
+  onChildAdded(newMsg, async (data) => {
+    console.log("ins order");
+    // console.log(data.val());
+    // containerCm.innerHTML = "";
+    if (data.val().userId == infoUser.id) {
+      data.val().items.forEach(async (value, key) => {
+        let dataItem = await selectOneData("products", value.item);
+        dataItem.number = value.number;
+        dataItem.createAt = data.val().createAt;
+        dataItem.status = data.val().status;
+        console.log(dataItem);
+
+        renderOrder(container, dataItem);
+      });
+    }
+  });
+  // console.log(arr);
+  // resolve(arr);
+}
+function realtimeOrderRemove(container, infoUser) {
+  const newMsg = ref(db, "orders/");
+  onChildRemoved(newMsg, async (data) => {
+    console.log("delete order");
+    // console.log(data.val());
+    // containerCm.innerHTML = "";
+    let filterData = [];
+    let dataOrder = await selectAllData("orders");
+    dataOrder.forEach((item) => {
+      if (item) {
+        filterData.push(item);
+      }
+    });
+    console.log(dataOrder);
+    console.log(filterData);
+    container.innerHTML = "";
+
+    filterData.forEach(async (value, key) => {
+      if (value) {
+        if (value.userId == infoUser.id) {
+          value.items.forEach(async (value2, key) => {
+            let dataItem = await selectOneData("products", value2.item);
+            dataItem.number = value2.number;
+            dataItem.createAt = value.createAt;
+            console.log(dataItem);
+
+            renderOrder(container, dataItem);
+          });
+        }
+      }
+    });
+  });
+  // console.log(arr);
+  // resolve(arr);
+}
+function realtimeOrderUpdate(container, infoUser) {
+  const newMsg = ref(db, "orders/");
+  onChildChanged(newMsg, async (data) => {
+    console.log("update order");
+    // console.log(data.val());
+    // containerCm.innerHTML = "";
+    let filterData = [];
+    let dataOrder = await selectAllData("orders");
+    dataOrder.forEach((item) => {
+      if (item) {
+        filterData.push(item);
+      }
+    });
+    console.log(dataOrder);
+    console.log(filterData);
+    container.innerHTML = "";
+
+    filterData.forEach(async (value, key) => {
+      if (value) {
+        if (value.userId == infoUser.id) {
+          value.items.forEach(async (value2, key) => {
+            let dataItem = await selectOneData("products", value2.item);
+            dataItem.number = value2.number;
+            dataItem.createAt = value.createAt;
+            console.log(dataItem);
+
+            renderOrder(container, dataItem);
+          });
+        }
+      }
+    });
+  });
+  // console.log(arr);
+  // resolve(arr);
+}
 export { realtimeComment };
 export { realtimeCommentUpdate };
-export { realtimeCommentDelete };
+export { realtimeCommentDelete, realtimeCartsDelete };
+export { realtimeOrder };
+export { realtimeOrderRemove };
+export { realtimeOrderUpdate };
 
 export { insertData };
 export { updateData };
 export { selectAllData };
 export { removeData };
 export { selectOneData };
+
+export { showCart };
+export { sumMoney };

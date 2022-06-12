@@ -26,6 +26,13 @@
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="./assets/css/base.css" />
     <link
       rel="stylesheet"
@@ -33,10 +40,9 @@
       href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
     />
     <link rel="stylesheet" href="./assets/css/main.css" />
-    <link rel="stylesheet" href="./assets/css/product.css" />
+    <link rel="stylesheet" href="./assets/css/payment.css" />
     <link rel="stylesheet" href="./assets/css/reponsive.css" />
-
-    <title>Sản Phẩm</title>
+    <title>Thanh Toán</title>
   </head>
   <body>
     <div class="app">
@@ -72,9 +78,7 @@
               <li>
                 <a href="contact.html" class="navbar-link-item">Liên Hệ</a>
               </li>
-              <li>
-                <a href="./payment.html" class="navbar-link-item">Thanh Toán</a>
-              </li>
+              <li><a href="./payment.html" class="navbar-link-item">Thanh Toán</a></li>
               <li>
                 <a
                   href="./register.html"
@@ -114,10 +118,10 @@
               </div>
             </div>
             <div class="hello">
-              <span>Chào</span>
+              <span>Chào!</span>
               <span class="name-user"></span>
               <span>|</span>
-              <a href="./index.html" class="exit">Thoát</a>
+              <a class="exit">Thoát</a>
             </div>
             <div class="navbar-icon-list">
               <a href="./user.html " class="navbar-icon-item user-icon">
@@ -136,59 +140,87 @@
       </div>
 
       <div class="main">
-        <h2>Sản Phẩm</h2>
-        <div class="search-product">
-          <form action="" method="get" class="form-product">
-            <input type="search" placeholder="Nhập để tìm kiếm...." />
-            <button type="submit"><i class="fas fa-search"></i></button>
-          </form>
-        </div>
-        <div class="main-product-2">
-          <div class="page-product active">
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-          </div>
-          <div class="page-product">
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-          </div>
-          <div class="page-product">
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-            <div class="main-product-item"></div>
-          </div>
-        </div>
-        <div class="number-page">
-          <span class="nunber-page-list active">1</span>
-          <span class="nunber-page-list">2</span>
-        </div>
-        <div class="user__online">
-          <div class="user__online-container">
-            <div class="togle_open_close">
-              <i class="fa-solid fa-arrows-left-right"></i>
-            </div>
+        <div class="container">
+          <h3 class="checkout__heading">ĐẶT HÀNG</h3>
+          <h2 class="message"></h2>
+          <form action="" class="form-oder checkout__info d-flex row">
+            <div
+              class="checkout__info-left col-sm-12 col-md-12 col-lg-6 col-xl-7"
+            >
+              <h3 class="checkout__info-title">Chi tiết đơn hàng</h3>
+              <div class="checkout__info-content">
+                <div
+                  class="checkout__info-label mt-3 d-flex align-items-center justify-content-between"
+                >
+                  <div class="input-group mb-3">
+                    <label for="name" class="form-label">Họ </label>
+                    <input type="text" class="form-control me-4 firstname" />
+                  </div>
+                  <div class="input-group mb-3">
+                    <label for="name" class="form-label">Tên</label><br />
+                    <input type="text" class="form-control lastname" />
+                  </div>
+                </div>
+                <p class="error error-name"></p>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control email" />
+                </div>
+                <p class="error error-email"></p>
 
-            <ul class="list-user">
-              <!-- <h4>Liên Lạc</h4> -->
-            </ul>
-          </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Số điện thoại</label>
+                  <input type="text" class="form-control sdt" />
+                </div>
+                <p class="error error-sdt"></p>
+
+                <div class="mb-3">
+                  <label for="address" class="form-label">Địa chỉ</label>
+                  <input
+                    type="text"
+                    class="form-control address"
+                    placeholder="Số nhà, tên đường, căn hộ, đơn vị"
+                  />
+                </div>
+                <p class="error error-address"></p>
+              </div>
+            </div>
+            <div
+              class="checkout__info-right col-sm-12 col-md-12 col-lg-6 col-xl-5"
+            >
+              <div class="checkout__order">
+                <h3 class="checkout__order-heading">Đơn hàng của tôi</h3>
+                <table class="table checkout__order-content">
+                  <thead>
+                    <tr class="checkout__order-title">
+                      <th>SẢN PHẨM</th>
+                      <th class="text-end">TỔNG CỘNG</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ListCheckOut"></tbody>
+                  <tfoot>
+                    <tr class="checkout__listtotal">
+                      <td>Tạm tính</td>
+                      <td class="text-end" id="checkout__subtotal"></td>
+                    </tr>
+                    <tr class="checkout__total">
+                      <td>Tổng tiền</td>
+                      <td class="text-end" id="checkout__total"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <div class="checkout__order-payment">
+                  <div class="checkout__payment">
+                    <h6 style="font-weight: 700">Phương thức thanh toán:</h6>
+                    <p>Thanh toán khi nhận hàng</p>
+                  </div>
+                  <button type="submit" class="checkout__button">
+                    ĐẶT HÀNG
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -284,13 +316,18 @@
       type="text/javascript"
       src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"
     ></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
     <script src="./js/slick.js"></script>
     <script src="./js/main.js" type="module"></script>
-    <script src="./js/product.js" type="module"></script>
     <script src="./js/user.js" type="module"></script>
   </body>
 </html>

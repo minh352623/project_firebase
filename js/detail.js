@@ -210,7 +210,6 @@ window.addEventListener("load", async function () {
     }
     setTimeout(function () {
       console.log("show 1");
-      window.location.href = "#";
       formCm.reset();
     }, 1000);
   });

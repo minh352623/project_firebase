@@ -1,0 +1,32 @@
+.oder_item {
+    padding: 12px 0;
+    font-size: 20px;
+    text-align: center;
+}
+
+.playout_order {
+    display: flex;
+    align-items: center;
+}
+
+.col-12.mt-3+.col-12.mt-3 {
+    border-top: 1px solid #ccc;
+}
+
+.remove_order:hover {
+    cursor: pointer;
+    display: block;
+    transform: scale(1.2);
+    color: red
+}
+
+.playout_order .img {
+    width: 150px;
+    height: 150px;
+}
+
+.playout_order .img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -4,7 +4,14 @@ import {
   selectOneData,
   selectAllData,
   removeData,
+  showCart,
+  sumMoney,
+  realtimeCartsDelete,
+  realtimeOrder,
+  realtimeOrderRemove,
+  realtimeOrderUpdate,
 } from "./controler.js";
+import { caretaDate } from "./data.js";
 window.addEventListener("load", async function () {
   let infoUser = JSON.parse(window.localStorage.getItem("login")) || false;
   const navbarLog = document.querySelector(".navbar-log");
@@ -222,5 +229,171 @@ window.addEventListener("load", async function () {
         window.location.href = "./addFirebase.html";
       }, 500);
     }
+  });
+
+  //thanh Toán
+  const valueFirstName = document.querySelector(".firstname");
+  const valueLastName = document.querySelector(".lastname");
+  const valueEmail = document.querySelector(".email");
+  const valueSdt = document.querySelector(".sdt");
+  const valueAddress = document.querySelector(".address");
+  const sumMoneyValue = document.querySelector("#checkout__subtotal");
+  const sumMoneyValue2 = document.querySelector("#checkout__total");
+
+  const tbody = document.querySelector("#ListCheckOut");
+  realtimeCartsDelete(tbody, infoUser);
+
+  const order = document.querySelector(".form-oder");
+  if (infoUser) {
+    let indexLastName = infoUser.name.trim().lastIndexOf(" ");
+    if (indexLastName > 0) {
+      let firstName = infoUser.name.slice(0, indexLastName).trim();
+      let lastName = infoUser.name.slice(indexLastName).trim();
+      valueFirstName ? (valueFirstName.value = firstName) : null;
+      valueLastName ? (valueLastName.value = lastName) : null;
+    } else {
+      valueLastName ? (valueLastName.value = infoUser.name) : null;
+    }
+    valueEmail ? (valueEmail.value = infoUser.email) : null;
+    valueSdt ? (valueSdt.value = infoUser.sdt) : null;
+    valueAddress ? (valueAddress.value = infoUser.address) : null;
+  }
+  showCart(tbody, infoUser);
+  function removeItemCart(e) {
+    let arrayItem = JSON.parse(window.localStorage.getItem("listItem")) || []; // lấy dữ liệu từ local
+    if (e.target.matches(".cart-center-info-name-clear i")) {
+      let removeItem = e.target.parentNode.parentNode.parentNode.parentNode;
+      this.removeChild(removeItem);
+      let idItem = e.target.parentNode.dataset.id;
+      removeData("carts", idItem);
+      showCart(tbody, infoUser);
+    }
+  }
+  // tbody?.addEventListener("click", removeItemCart);
+
+  tbody?.addEventListener("click", removeItemCart);
+
+  // sumMoney(sumMoneyValue);
+  // sumMoney(sumMoneyValue2);
+  async function validateOrder(e) {
+    e.preventDefault();
+    let valueFirstName = this.querySelector(".firstname").value;
+    let valueLastName = this.querySelector(".lastname").value;
+    let valueEmail = this.querySelector(".email").value;
+    let valueSdt = this.querySelector(".sdt").value;
+    let valueAddress = this.querySelector(".address").value;
+
+    let isFirstName = false;
+    let isLastName = false;
+    let isEmail = false;
+    let isSdt = false;
+    let isAddress = false;
+
+    const errorName = document.querySelector(".error-name");
+    const errorEmail = document.querySelector(".error-email");
+    const errorSdt = document.querySelector(".error-sdt");
+    const errorAdd = document.querySelector(".error-address");
+    const message = document.querySelector(".message");
+    console.log(errorName);
+    if (valueFirstName.length == 0 || valueLastName.length == 0) {
+      errorName.textContent = "Họ tên không được trống";
+      isFirstName = false;
+      isLastName = false;
+    } else {
+      errorName.textContent = "";
+      isFirstName = true;
+      isLastName = true;
+    }
+
+    if (valueEmail.length == 0) {
+      errorEmail.textContent = "Email không được trống";
+      isEmail = false;
+    } else {
+      errorEmail.textContent = "";
+      isEmail = true;
+    }
+    if (valueSdt.length == 0) {
+      errorSdt.textContent = "Số điện thoại không được trống";
+      isSdt = false;
+    } else {
+      errorSdt.textContent = "";
+      isSdt = true;
+    }
+    if (valueAddress.length == 0) {
+      errorAdd.textContent = "Địa chỉ không được trống";
+      isAddress = false;
+    } else {
+      errorAdd.textContent = "";
+      isAddress = true;
+    }
+
+    if (isAddress && isEmail && isFirstName && isLastName && isSdt) {
+      let arrayItem = (await selectAllData("carts")) || [];
+      if (arrayItem.length > 0) {
+        let data = {
+          items: [],
+          userId: 0,
+        };
+        arrayItem.forEach((item, key) => {
+          if (item.user === infoUser.id) {
+            data.items.push({ item: item.id, number: item.number });
+            data.userId = infoUser.id;
+            data.createAt = caretaDate();
+            data.status = 0;
+
+            console.log(data);
+          }
+        });
+        insertData("orders", data);
+      }
+
+      message.textContent =
+        "Thanh toán thành công! Vui lòng đến trang cá nhân xem chi tiết đơn hàng của bạn.";
+      message.style.padding = "8px";
+      message.style.backgroundColor = "green";
+      window.location.href = "#";
+    } else {
+      message.textContent =
+        "Thanh toán thất bại! Vui lòng kiểm tra thông tin nhận hàng.";
+      message.style.padding = "8px";
+      message.style.backgroundColor = "rgb(171, 5, 5)";
+      window.location.href = "#";
+    }
+  }
+  order?.addEventListener("submit", validateOrder);
+
+  const containerOrder = document.querySelector(".order-container");
+  realtimeOrder(containerOrder, infoUser);
+  realtimeOrderRemove(containerOrder, infoUser);
+  realtimeOrderUpdate(containerOrder, infoUser);
+  containerOrder?.addEventListener("click", async function (e) {
+    console.log();
+    let dataCreate = e.target.parentNode.parentNode.dataset.create;
+    let dataId = e.target.parentNode.parentNode.dataset.id;
+
+    let dataOrder = await selectAllData("orders");
+    dataOrder.forEach((value, key) => {
+      if (value.userId == infoUser.id) {
+        if (new Date(value.createAt) - new Date(dataCreate) == 0) {
+          if (value.items.length > 1) {
+            console.log(value);
+            value.items.forEach((item2, key2) => {
+              if (item2.item == dataId) {
+                value.items.splice(key2, 1);
+              }
+            });
+            let data = {
+              ...value,
+              items: value.items,
+            };
+            updateData("orders", key, data);
+          } else if (value.items.length == 1) {
+            if (value.items[0].item == dataId) {
+              removeData("orders", key);
+            }
+          }
+        }
+      }
+    });
   });
 });

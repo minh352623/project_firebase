@@ -674,6 +674,19 @@
     cursor: pointer;
 }
 
+a {
+    text-decoration: none;
+}
+
+.cart-bottom-btn a.handeler_payment button {
+    display: block;
+    border-left: 1px solid #fff;
+}
+
+.cart-bottom-btn a.handeler_payment button:hover {
+    background-color: #ba933e;
+}
+
 .cart-center-info-name-clear i {
     font-size: 20px;
 }
