@@ -373,6 +373,7 @@ window.addEventListener("load", async function () {
   const userCount = document.querySelector(".number_browser");
   realtimeOrder(containerOrder, infoUser, containerOrderAuth, count, userCount);
   realtimeOrderRemove(containerOrder, infoUser, count, userCount);
+  realtimeOrderUpdate(containerOrder, infoUser, count, userCount);
   containerOrder?.addEventListener("click", async function (e) {
     console.log();
     let dataCreate = e.target.parentNode.parentNode.dataset.create;

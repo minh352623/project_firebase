@@ -518,6 +518,7 @@ function realtimeOrder(container, infoUser, containerAuth, counted, userCount) {
       if (data.val().items) {
         data.val().items.forEach(async (value2) => {
           if (value2.author == infoUser.id) {
+            // console.log(value2);
             let infoUser = await selectOneData("users", data.val().userId);
             let dataItem = await selectOneData("products", value2.item);
             dataItem.number = value2.number;
@@ -598,6 +599,8 @@ function realtimeOrderRemove(container, infoUser, counted, userCount) {
             let dataItem = await selectOneData("products", value2.item);
             dataItem.number = value2.number;
             dataItem.createAt = value.createAt;
+            dataItem.status = value.status;
+
             console.log(dataItem);
 
             renderOrder(container, dataItem);
@@ -612,6 +615,8 @@ function realtimeOrderRemove(container, infoUser, counted, userCount) {
 function realtimeOrderUpdate(container, infoUser, counted, userCount) {
   const newMsg = ref(db, "orders/");
   onChildChanged(newMsg, async (data) => {
+    console.log("update order");
+
     let filterData1 = [];
     let count = 0;
     let orderData = await selectAllData("orders");
@@ -633,7 +638,6 @@ function realtimeOrderUpdate(container, infoUser, counted, userCount) {
     });
     counted ? (counted.textContent = count) : null;
     userCount ? (userCount.textContent = count) : null;
-    console.log("update order");
     // console.log(data.val());
     // containerCm.innerHTML = "";
     let filterData = [];
@@ -654,6 +658,8 @@ function realtimeOrderUpdate(container, infoUser, counted, userCount) {
             let dataItem = await selectOneData("products", value2.item);
             dataItem.number = value2.number;
             dataItem.createAt = value.createAt;
+            dataItem.status = value.status;
+
             console.log(dataItem);
 
             renderOrder(container, dataItem);
