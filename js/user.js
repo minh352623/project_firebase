@@ -340,10 +340,10 @@ window.addEventListener("load", async function () {
               item: item.id,
               number: item.number,
               author: item.author,
+              status: 0,
             });
             data.userId = infoUser.id;
             data.createAt = caretaDate();
-            data.status = 0;
 
             console.log(data);
           }
@@ -373,7 +373,13 @@ window.addEventListener("load", async function () {
   const userCount = document.querySelector(".number_browser");
   realtimeOrder(containerOrder, infoUser, containerOrderAuth, count, userCount);
   realtimeOrderRemove(containerOrder, infoUser, count, userCount);
-  realtimeOrderUpdate(containerOrder, infoUser, count, userCount);
+  realtimeOrderUpdate(
+    containerOrder,
+    infoUser,
+    containerOrderAuth,
+    count,
+    userCount
+  );
   containerOrder?.addEventListener("click", async function (e) {
     console.log();
     let dataCreate = e.target.parentNode.parentNode.dataset.create;
@@ -403,5 +409,34 @@ window.addEventListener("load", async function () {
         }
       }
     });
+  });
+
+  //
+  const duyet = document.querySelector(".order-duyet-container");
+  duyet?.addEventListener("click", async function (e) {
+    if (e.target.matches(".not-browser")) {
+      let id = e.target.parentNode.dataset.id;
+      let date = e.target.parentNode.dataset.create;
+      console.log(date);
+      let dataOrder = await selectAllData("orders");
+      dataOrder.forEach((value, key1) => {
+        console.log(new Date(value.createAt));
+        if (new Date(value.createAt) - new Date(date) == 0) {
+          if (value.items) {
+            value.items.forEach((value2, key2) => {
+              if (value2.item == id && value2.author == infoUser.id) {
+                value2.status = 1;
+                value.items[key2] = value2;
+                let data = {
+                  ...value,
+                  items: value.items,
+                };
+                updateData("orders", key1, data);
+              }
+            });
+          }
+        }
+      });
+    }
   });
 });
