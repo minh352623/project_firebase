@@ -438,9 +438,103 @@ function renderOrder(container, item) {
   `;
   container?.insertAdjacentHTML("beforeend", template);
 }
-function realtimeOrder(container, infoUser) {
+function renderOrderAuth(container, item) {
+  let template = `
+  
+  <div class="col-12 mt-3">
+  <div class="oder_item">
+    <div class="row playout_order">
+      <div class="col-2">
+        <div class="img">
+          <img src="${item.link}" alt="" />
+        </div>
+      </div>
+      <div class="col-2">
+        <p class="order_name" style="color: #ff871d">
+          ${item.name}
+        </p>
+        <p>Người đặt hàng: ${item.userName}</p>
+      </div>
+      <div class="col-3">
+        <span>Giá: </span>
+        <span class="price">${item.price}</span>
+        <span>đ</span>
+        <p>${item.createAt}</p>
+      </div>
+      <div class="col-4">
+        <span>Số lượng: </span>
+        <span class="number_order">${item.number}</span>
+
+        <p style="color: #ff871d">
+          Trạng thái: ${
+            item.status == 0
+              ? "Đang chờ xác nhận"
+              : item.status == 1
+              ? "Đã xác nhận. Đang vận chuyển"
+              : "Đã nhận"
+          }
+        </p>
+      </div>
+      <div
+        class="col-1"
+        data-id="${item.id}"
+        data-create="${item.createAt}"
+      >
+        <span class="btn btn-danger not-browser">Chưa duyệt</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+  console.log("ádasdasd");
+  container?.insertAdjacentHTML("beforeend", template);
+}
+function realtimeOrder(container, infoUser, containerAuth, counted, userCount) {
   const newMsg = ref(db, "orders/");
   onChildAdded(newMsg, async (data) => {
+    let filterData = [];
+    let count = 0;
+    let orderData = await selectAllData("orders");
+    orderData.forEach((item) => {
+      if (item) {
+        filterData.push(item);
+      }
+    });
+    filterData.forEach((value) => {
+      if (value) {
+        if (value.items) {
+          value.items.forEach((value2, key2) => {
+            if (value2.author == infoUser.id) {
+              count++;
+            }
+          });
+        }
+      }
+    });
+    //chủ shop
+    // data.val().forEach((value) => {
+    if (data.val()) {
+      if (data.val().items) {
+        data.val().items.forEach(async (value2) => {
+          if (value2.author == infoUser.id) {
+            let infoUser = await selectOneData("users", data.val().userId);
+            let dataItem = await selectOneData("products", value2.item);
+            dataItem.number = value2.number;
+            dataItem.createAt = data.val().createAt;
+            dataItem.status = data.val().status;
+            dataItem.userName = infoUser.name;
+            console.log(dataItem);
+            renderOrderAuth(containerAuth, dataItem);
+          }
+        });
+      }
+    }
+    counted ? (counted.textContent = count) : null;
+    userCount ? (userCount.textContent = count) : null;
+
+    // });
+    //người mua
     console.log("ins order");
     // console.log(data.val());
     // containerCm.innerHTML = "";
@@ -459,9 +553,30 @@ function realtimeOrder(container, infoUser) {
   // console.log(arr);
   // resolve(arr);
 }
-function realtimeOrderRemove(container, infoUser) {
+function realtimeOrderRemove(container, infoUser, counted, userCount) {
   const newMsg = ref(db, "orders/");
   onChildRemoved(newMsg, async (data) => {
+    let filterData1 = [];
+    let count = 0;
+    let orderData = await selectAllData("orders");
+    orderData.forEach((item) => {
+      if (item) {
+        filterData1.push(item);
+      }
+    });
+    filterData1.forEach((value) => {
+      if (value) {
+        if (value.items) {
+          value.items.forEach((value2, key2) => {
+            if (value2.author == infoUser.id) {
+              count++;
+            }
+          });
+        }
+      }
+    });
+    counted ? (counted.textContent = count) : null;
+    userCount ? (userCount.textContent = count) : null;
     console.log("delete order");
     // console.log(data.val());
     // containerCm.innerHTML = "";
@@ -494,9 +609,30 @@ function realtimeOrderRemove(container, infoUser) {
   // console.log(arr);
   // resolve(arr);
 }
-function realtimeOrderUpdate(container, infoUser) {
+function realtimeOrderUpdate(container, infoUser, counted, userCount) {
   const newMsg = ref(db, "orders/");
   onChildChanged(newMsg, async (data) => {
+    let filterData1 = [];
+    let count = 0;
+    let orderData = await selectAllData("orders");
+    orderData.forEach((item) => {
+      if (item) {
+        filterData1.push(item);
+      }
+    });
+    filterData1.forEach((value) => {
+      if (value) {
+        if (value.items) {
+          value.items.forEach((value2, key2) => {
+            if (value2.author == infoUser.id) {
+              count++;
+            }
+          });
+        }
+      }
+    });
+    counted ? (counted.textContent = count) : null;
+    userCount ? (userCount.textContent = count) : null;
     console.log("update order");
     // console.log(data.val());
     // containerCm.innerHTML = "";

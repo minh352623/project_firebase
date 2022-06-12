@@ -336,7 +336,11 @@ window.addEventListener("load", async function () {
         };
         arrayItem.forEach((item, key) => {
           if (item.user === infoUser.id) {
-            data.items.push({ item: item.id, number: item.number });
+            data.items.push({
+              item: item.id,
+              number: item.number,
+              author: item.author,
+            });
             data.userId = infoUser.id;
             data.createAt = caretaDate();
             data.status = 0;
@@ -363,9 +367,12 @@ window.addEventListener("load", async function () {
   order?.addEventListener("submit", validateOrder);
 
   const containerOrder = document.querySelector(".order-container");
-  realtimeOrder(containerOrder, infoUser);
-  realtimeOrderRemove(containerOrder, infoUser);
-  realtimeOrderUpdate(containerOrder, infoUser);
+  const containerOrderAuth = document.querySelector(".order-duyet-container");
+  console.log(containerOrderAuth);
+  const count = document.querySelector(".message_order");
+  const userCount = document.querySelector(".number_browser");
+  realtimeOrder(containerOrder, infoUser, containerOrderAuth, count, userCount);
+  realtimeOrderRemove(containerOrder, infoUser, count, userCount);
   containerOrder?.addEventListener("click", async function (e) {
     console.log();
     let dataCreate = e.target.parentNode.parentNode.dataset.create;
