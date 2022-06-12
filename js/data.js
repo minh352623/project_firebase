@@ -1,7 +1,7 @@
 import { selectOneData } from "./controler.js";
 function renderItem(item) {
   let template = `
-    <div class="main-product-item-img" data-id="${item.id}">
+    <div class="main-product-item-img" data-id="${item.id}" data-author=${item.userId}>
             <img src="${item.link}" alt="" />
             <div class="main-product-item-img-icon">
               <span class="icon-cart icon">
@@ -77,7 +77,24 @@ async function loadItem(arrayItem, itemCart) {
 function formatMoney(num) {
   return Intl.NumberFormat("vi-VN").format(num);
 }
+function caretaDate() {
+  let today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1; // Months start at 0!
+  let dd = today.getDate();
+  let hh = today.getHours();
+  let minus = today.getMinutes();
+  let sc = today.getSeconds();
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+  if (hh < 10) hh = "0" + hh;
+  if (minus < 10) minus = "0" + minus;
+  if (sc < 10) minus = "0" + sc;
 
+  today = hh + ":" + minus + ":" + sc + "  " + dd + "/" + mm + "/" + yyyy;
+  return today;
+}
 export { loadItem };
-
 export { formatMoney };
+
+export { caretaDate };

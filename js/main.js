@@ -5,9 +5,20 @@ import {
   selectAllData,
   selectOneData,
   removeData,
+  showCart,
+  sumMoney,
+  realtimeCartsDelete,
 } from "./controler.js";
 
 window.addEventListener("load", async function () {
+  const totalPrice = document.querySelector(".total-price");
+  const quantityItem = document.querySelector(".quantity-item");
+  const cartTopQuantity = document.querySelector(".cart-top-quantity");
+  const arrayEmpty = document.querySelector(".array-empty");
+
+  const cartCenter = document.querySelector(".cart-center");
+  let infoUser = JSON.parse(window.localStorage.getItem("login")) || false;
+
   const mainProductItem = document.querySelectorAll(".main-product-item");
   const product = await selectAllData("products");
   //console.log(product);
@@ -19,8 +30,6 @@ window.addEventListener("load", async function () {
   const productContainerBtnB = document.querySelector(
     ".product-container-btn button"
   );
-  //console.log(productContainerBtnB);
-  //console.log(productContainerBtn);
 
   const heightAuto = document.querySelector(".main-product");
   productContainerBtn?.addEventListener("click", function () {
@@ -52,7 +61,6 @@ window.addEventListener("load", async function () {
   });
 
   // add cart
-  let infoUser = JSON.parse(window.localStorage.getItem("login")) || false;
   //console.log(infoUser.id);
   let arrayItem = [];
 
@@ -75,6 +83,7 @@ window.addEventListener("load", async function () {
         ).textContent.trim(),
         number: 1,
         user: infoUser.id,
+        author: +this.querySelector(".main-product-item-img").dataset.author,
       };
       let index = -1;
       let number;
@@ -105,63 +114,31 @@ window.addEventListener("load", async function () {
         }
       }
 
-      // sumMoney();
+      sumMoney(infoUser, totalPrice, quantityItem, cartTopQuantity);
     }
   }
-  function createItem(item, key) {
-    let template = `
-        <div class="cart-center-item "  >
-        <div class="cart-center-item-img" >
-          <img src="${item.link}" alt="">
-        </div>
-        <div class="cart-center-item-info">
-          <div class="cart-center-info-name">
-            <span class="cart-center-info-name-js">${item.name}</span>
-            <span class="cart-center-info-name-clear " data-id=${key}><i class="fas fa-trash-alt"></i></span>
-          </div>
-          <div class="cart-center-info-qty">
-            <span>QTY:</span>
-            <span class="cart-center-info-qty-number"> ${item.number}</span>
-        
-          </div>
-          <div class="cart-center-info-price">
-            <span class="cart-center-info-prices">${item.price}</span>
-            <span>đ</span>
-          </div>
-        </div>
-      
-      </div>`;
-    return template;
-  }
 
-  const cartCenter = document.querySelector(".cart-center");
-  const arrayEmpty = document.querySelector(".array-empty");
-
-  async function showCart() {
-    // arrayItem = JSON.parse(window.localStorage.getItem("listItem")) || []; // lấy dữ liệu từ local
-    let arrayItem = (await selectAllData("carts")) || [];
-    //console.log(arrayItem);
-    cartCenter ? (cartCenter.innerHTML = "") : null; // reset cart
-    if (arrayItem.length > 0) {
-      arrayItem.forEach((item, key) => {
-        if (item.user === infoUser.id) {
-          cartCenter?.insertAdjacentHTML("beforeend", createItem(item, key));
-        }
-      });
-      arrayEmpty ? (arrayEmpty.textContent = "") : null;
-    } else {
-      arrayEmpty ? (arrayEmpty.textContent = "NO PRODUCTS") : null;
-    }
-    sumMoney();
-  }
-
-  showCart();
+  showCart(
+    cartCenter,
+    infoUser,
+    arrayEmpty,
+    totalPrice,
+    quantityItem,
+    cartTopQuantity
+  );
   mainProductItem.forEach(async function (item, index) {
     item.addEventListener("click", await handleAddCart);
 
     item.addEventListener("click", () => {
       setTimeout(() => {
-        showCart();
+        showCart(
+          cartCenter,
+          infoUser,
+          arrayEmpty,
+          totalPrice,
+          quantityItem,
+          cartTopQuantity
+        );
       }, 1500);
     });
   });
@@ -174,9 +151,24 @@ window.addEventListener("load", async function () {
       this.removeChild(removeItem);
       let idItem = e.target.parentNode.dataset.id;
       removeData("carts", idItem);
-      showCart();
+      showCart(
+        cartCenter,
+        infoUser,
+        arrayEmpty,
+        totalPrice,
+        quantityItem,
+        cartTopQuantity
+      );
     }
   }
+  realtimeCartsDelete(
+    cartCenter,
+    infoUser,
+    arrayEmpty,
+    totalPrice,
+    quantityItem,
+    cartTopQuantity
+  );
   const header = document.querySelector(".header");
   let heightHeader = header && header.offsetHeight;
   //console.log(heightHeader);
@@ -191,25 +183,8 @@ window.addEventListener("load", async function () {
       document.body.style.paddingTop = "";
     }
   });
-  const totalPrice = document.querySelector(".total-price");
-  const quantityItem = document.querySelector(".quantity-item");
-  const cartTopQuantity = document.querySelector(".cart-top-quantity");
-  async function sumMoney() {
-    let sum = 0;
-    let sumNumber = 0;
-    let arrayItem = (await selectAllData("carts")) || [];
 
-    arrayItem.forEach((item, index) => {
-      if (item.user == infoUser.id) {
-        sum += item.price * item.number;
-        sumNumber += item.number;
-      }
-    });
-    totalPrice ? (totalPrice.textContent = `${formatMoney(sum)} đ`) : null;
-    quantityItem ? (quantityItem.textContent = `${sumNumber}`) : null;
-    cartTopQuantity ? (cartTopQuantity.textContent = `${sumNumber}`) : null;
-  }
-  sumMoney();
+  sumMoney(infoUser, totalPrice, quantityItem, cartTopQuantity);
 
   //modile
   const menu = document.querySelector(".icon-mobile-menu i");
