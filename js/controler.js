@@ -480,7 +480,12 @@ function renderOrderAuth(container, item) {
         data-id="${item.id}"
         data-create="${item.createAt}"
       >
-        <span class="btn btn-danger not-browser">Chưa duyệt</span>
+      ${
+        item.status == 0
+          ? '<span class="btn btn-danger not-browser">Chưa duyệt</span>'
+          : '<span class="btn btn-success browser">Đã duyệt</span>'
+      }
+        
       </div>
     </div>
   </div>
@@ -505,7 +510,7 @@ function realtimeOrder(container, infoUser, containerAuth, counted, userCount) {
       if (value) {
         if (value.items) {
           value.items.forEach((value2, key2) => {
-            if (value2.author == infoUser.id) {
+            if (value2.author == infoUser.id && value2.status == 0) {
               count++;
             }
           });
@@ -517,13 +522,14 @@ function realtimeOrder(container, infoUser, containerAuth, counted, userCount) {
     if (data.val()) {
       if (data.val().items) {
         data.val().items.forEach(async (value2) => {
+          console.log(value2);
           if (value2.author == infoUser.id) {
             // console.log(value2);
             let infoUser = await selectOneData("users", data.val().userId);
             let dataItem = await selectOneData("products", value2.item);
             dataItem.number = value2.number;
             dataItem.createAt = data.val().createAt;
-            dataItem.status = data.val().status;
+            dataItem.status = value2.status;
             dataItem.userName = infoUser.name;
             console.log(dataItem);
             renderOrderAuth(containerAuth, dataItem);
@@ -544,7 +550,7 @@ function realtimeOrder(container, infoUser, containerAuth, counted, userCount) {
         let dataItem = await selectOneData("products", value.item);
         dataItem.number = value.number;
         dataItem.createAt = data.val().createAt;
-        dataItem.status = data.val().status;
+        dataItem.status = value.status;
         console.log(dataItem);
 
         renderOrder(container, dataItem);
@@ -569,7 +575,7 @@ function realtimeOrderRemove(container, infoUser, counted, userCount) {
       if (value) {
         if (value.items) {
           value.items.forEach((value2, key2) => {
-            if (value2.author == infoUser.id) {
+            if (value2.author == infoUser.id && value2.status == 0) {
               count++;
             }
           });
@@ -599,7 +605,7 @@ function realtimeOrderRemove(container, infoUser, counted, userCount) {
             let dataItem = await selectOneData("products", value2.item);
             dataItem.number = value2.number;
             dataItem.createAt = value.createAt;
-            dataItem.status = value.status;
+            dataItem.status = value2.status;
 
             console.log(dataItem);
 
@@ -612,14 +618,22 @@ function realtimeOrderRemove(container, infoUser, counted, userCount) {
   // console.log(arr);
   // resolve(arr);
 }
-function realtimeOrderUpdate(container, infoUser, counted, userCount) {
+function realtimeOrderUpdate(
+  container,
+  infoUser,
+  containerAuth,
+  counted,
+  userCount
+) {
   const newMsg = ref(db, "orders/");
   onChildChanged(newMsg, async (data) => {
+    //chủ shop
+    let orderData = await selectAllData("orders");
+
     console.log("update order");
 
     let filterData1 = [];
     let count = 0;
-    let orderData = await selectAllData("orders");
     orderData.forEach((item) => {
       if (item) {
         filterData1.push(item);
@@ -629,13 +643,32 @@ function realtimeOrderUpdate(container, infoUser, counted, userCount) {
       if (value) {
         if (value.items) {
           value.items.forEach((value2, key2) => {
-            if (value2.author == infoUser.id) {
+            if (value2.author == infoUser.id && value2.status == 0) {
               count++;
             }
           });
         }
       }
     });
+    //chủ shop
+    containerAuth ? (containerAuth.innerHTML = "") : null;
+    filterData1.forEach((value1) => {
+      value1.items.forEach(async (value2) => {
+        console.log(value2);
+        if (value2.author == infoUser.id) {
+          // console.log(value2);
+          let infoUser = await selectOneData("users", value1.userId);
+          let dataItem = await selectOneData("products", value2.item);
+          dataItem.number = value2.number;
+          dataItem.createAt = value1.createAt;
+          dataItem.status = value2.status;
+          dataItem.userName = infoUser.name;
+          console.log(dataItem);
+          renderOrderAuth(containerAuth, dataItem);
+        }
+      });
+    });
+    //end
     counted ? (counted.textContent = count) : null;
     userCount ? (userCount.textContent = count) : null;
     // console.log(data.val());
@@ -649,7 +682,7 @@ function realtimeOrderUpdate(container, infoUser, counted, userCount) {
     });
     console.log(dataOrder);
     console.log(filterData);
-    container.innerHTML = "";
+    container ? (container.innerHTML = "") : null;
 
     filterData.forEach(async (value, key) => {
       if (value) {
@@ -658,7 +691,7 @@ function realtimeOrderUpdate(container, infoUser, counted, userCount) {
             let dataItem = await selectOneData("products", value2.item);
             dataItem.number = value2.number;
             dataItem.createAt = value.createAt;
-            dataItem.status = value.status;
+            dataItem.status = value2.status;
 
             console.log(dataItem);
 
