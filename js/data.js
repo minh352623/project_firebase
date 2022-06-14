@@ -93,7 +93,7 @@ function caretaDate() {
   if (minus < 10) minus = "0" + minus;
   if (sc < 10) sc = "0" + sc;
 
-  today = hh + ":" + minus + ":" + sc + "  " + dd + "/" + mm + "/" + yyyy;
+  today = hh + ":" + minus + ":" + sc + "  " + mm + "/" + dd + "/" + yyyy;
   return today;
 }
 export { loadItem };

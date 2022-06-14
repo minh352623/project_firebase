@@ -382,33 +382,35 @@ window.addEventListener("load", async function () {
   );
   containerOrder?.addEventListener("click", async function (e) {
     console.log();
-    let dataCreate = e.target.parentNode.parentNode.dataset.create;
-    let dataId = e.target.parentNode.parentNode.dataset.id;
+    if (e.target.matches(".remove_order i")) {
+      let dataCreate = e.target.parentNode.parentNode.dataset.create;
+      let dataId = e.target.parentNode.parentNode.dataset.id;
 
-    let dataOrder = await selectAllData("orders");
-    dataOrder.forEach((value, key) => {
-      if (value.userId == infoUser.id) {
-        if (new Date(value.createAt) - new Date(dataCreate) == 0) {
-          if (value.items.length > 1) {
-            console.log(value);
-            value.items.forEach((item2, key2) => {
-              if (item2.item == dataId) {
-                value.items.splice(key2, 1);
+      let dataOrder = await selectAllData("orders");
+      dataOrder.forEach((value, key) => {
+        if (value.userId == infoUser.id) {
+          if (new Date("value.createAt") - new Date("dataCreate") == 0) {
+            if (value.items.length > 1) {
+              console.log(value);
+              value.items.forEach((item2, key2) => {
+                if (item2.item == dataId) {
+                  value.items.splice(key2, 1);
+                }
+              });
+              let data = {
+                ...value,
+                items: value.items,
+              };
+              updateData("orders", key, data);
+            } else if (value.items.length == 1) {
+              if (value.items[0].item == dataId) {
+                removeData("orders", key);
               }
-            });
-            let data = {
-              ...value,
-              items: value.items,
-            };
-            updateData("orders", key, data);
-          } else if (value.items.length == 1) {
-            if (value.items[0].item == dataId) {
-              removeData("orders", key);
             }
           }
         }
-      }
-    });
+      });
+    }
   });
 
   //
