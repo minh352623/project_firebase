@@ -389,7 +389,7 @@ window.addEventListener("load", async function () {
       let dataOrder = await selectAllData("orders");
       dataOrder.forEach((value, key) => {
         if (value.userId == infoUser.id) {
-          if (new Date("value.createAt") - new Date("dataCreate") == 0) {
+          if (new Date(value.createAt) - new Date(dataCreate) == 0) {
             if (value.items.length > 1) {
               console.log(value);
               value.items.forEach((item2, key2) => {
