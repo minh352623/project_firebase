@@ -85,7 +85,6 @@ function caretaDate() {
   let hh = today.getHours();
   let minus = today.getMinutes();
   let sc = today.getSeconds();
-  dd = dd - 1;
   if (dd < 10) dd = "0" + dd;
   if (mm < 10) mm = "0" + mm;
   if (hh < 10) hh = "0" + hh;
